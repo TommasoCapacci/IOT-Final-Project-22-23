@@ -1,29 +1,19 @@
-
-/*
-*	IMPORTANT:
-*	The code will be avaluated based on:
-*		Code design  
-*
-*/
- 
- 
 #include "Timer.h"
 #include "RadioRoute.h"
 
 
 module RadioRouteC @safe() {
   uses {
-  
-    /****** INTERFACES *****/
-	interface Boot;
 
+    /****** INTERFACES *****/
+	  interface Boot;
     //interfaces for communication
-	//interface for timers
-	//interface for LED
+    //interface for timers
+    //interface for LED
     //other interfaces, if needed
+    
   }
-}
-implementation {
+} implementation {
 
   message_t packet;
   
