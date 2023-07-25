@@ -19,11 +19,14 @@ typedef nx_struct radio_route_msg {
     Node* next;
   } Node;
 
+
+// Other constants
 enum{
   AM_RADIO_COUNT_MSG = 10,
-  ACK_INTERVAL = 500,
-  
-  // Message constants
+  ACK_TIMEOUT = 500,
+  TEMP_TOPIC = 0,
+  HUM_TOPIC = 1,
+  LUM_TOPIC =2,
   CONNECT = 0,
   CONNACK = 1,
   SUB = 2,
