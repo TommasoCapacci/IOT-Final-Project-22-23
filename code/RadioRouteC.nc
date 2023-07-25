@@ -10,7 +10,6 @@ module RadioRouteC @safe() {
     interface Receive;
     interface AMSend;
     interface SplitControl as AMControl;
-    interface Leds;
     interface Timer<TMilli> as Timer0;
     interface Timer<TMilli> as Timer1;
     interface Packet;
