@@ -51,12 +51,12 @@ t.addChannel("data",out)
 
 
 # NODES CREATION
-num_nodes = 7  # CHANGE THIS FOR DIFFERENT NUMBERS OF NODES
+num_nodes = 9  # CHANGE THIS FOR DIFFERENT NUMBERS OF NODES
 for i in range(1, num_nodes + 1):
     print("Creating node " + str(i) + "...")
-    node1 = t.getNode(i) 
+    node = t.getNode(i) 
     time = 0 
-    node1.bootAtTime(time) 
+    node.bootAtTime(time) 
     print(">>>Will boot at time " + str(time/t.ticksPerSecond()) + "[sec]")
 
 

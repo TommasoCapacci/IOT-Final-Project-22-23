@@ -36,7 +36,7 @@ module RadioRouteC @safe() {
   void printPacketDebug(radio_route_msg_t* packet);
 
   Node* addNode(Node* list, uint8_t id);
-  bool searchNode(Node* list, uint8_t id);
+  bool ID(Node* list, uint8_t id);
 
   void handleRetransmission(uint16_t address, radio_route_msg_t* packet)
   void handleCONNECT(radio_route_msg_t* packet);
@@ -70,7 +70,7 @@ module RadioRouteC @safe() {
     return newNode;
   }
 
-  bool searchNode(Node* list, uint8_t id){
+  bool searchID(Node* list, uint8_t id){
   /*
   * Search a node inside the specified list
   */
@@ -99,25 +99,55 @@ module RadioRouteC @safe() {
   }
 
   void handleCONNACK(radio_route_msg_t* packet){
-    if (openRequest && request->message_type == CONNECT)
+    if (request != NULL && request->message_type == CONNECT){
       call Timer0.stop();
+      request = NULL;
 
-    // generate and send random subscription request (even in broadcast)
+      // generate and send random subscription request
       uint8_t topic = call Random.rand32() % 3;
       packet->id = TOS_NODE_ID;
       packet->message_type = SUB;
       packet->topic = topic;
-      generate_send(AM_BROADCAST_ADDR, packet);
-      handleRetransmission(AM_BROADCAST_ADDR, packet);
+      generate_send(1, packet);
+      handleRetransmission(1, packet);
+    }
   }
 
   void handleSUB(radio_route_msg_t* packet){
+    id = packet->id;
+    topic = packet->topic;
+    if (searchID(connections[topic], id) && !searchID(subscriptions[topic], id)){
+      subscriptions[topic] = addNode(subscriptions[topic], id);
+      packet->message_type = SUBACK;
+      generate_send(id, packet);
+      handleRetransmission(id, packet);
+    }
   }
 
   void handleSUBACK(radio_route_msg_t* packet){
+    if (request != NULL && request->message_type == SUB){
+      call Timer0.stop();
+      request = NULL;
+
+      // generate publish request
+      call Timer1.startPeriodic(PUBLISH_TIMEOUT);
+    }
   }
 
   void handlePUBLISH(radio_route_msg_t* packet){
+    if (TOS_NODE_ID == 1){
+      id = packet->id;
+      topic = packet->topic;
+      temp = subscriptions[topic];
+      while (temp != NULL){
+        if (temp->id != id){
+          generate_send(temp->id, packet);
+          temp = temp->next;
+        }
+      } 
+    } else {
+      printPacketDebug(packet);
+    }
   }  
 
   bool generate_send(uint16_t address, message_t* packet){
@@ -172,6 +202,17 @@ module RadioRouteC @safe() {
   */
     generate_send(requestAddress, request);
     call Timer0.startOneShot(ACK_TIMEOUT);
+  }
+
+  event void Timer1.fired() {
+  /*
+  * Use this timer to handle pubblications
+  */
+    uint8_t topic = call Random.rand32() % 3;
+    packet->id = TOS_NODE_ID;
+    packet->message_type = PUBLISH;
+    packet->topic = topic;
+    generate_send(1, packet);
   }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {

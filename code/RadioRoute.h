@@ -24,6 +24,7 @@ typedef nx_struct radio_route_msg {
 enum{
   AM_RADIO_COUNT_MSG = 10,
   ACK_TIMEOUT = 500,
+  PUB_INTERVAL = 200,
   TEMP_TOPIC = 0,
   HUM_TOPIC = 1,
   LUM_TOPIC =2,
