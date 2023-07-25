@@ -5,7 +5,7 @@ implementation {
  
   /****** COMPONENTS *****/
   components MainC, RadioRouteC as App;
-  //add  other components down here
+  // add other components down here
   components new AMReceiverC(AM_RADIO_COUNT_MSG);
   components new AMSenderC(AM_RADIO_COUNT_MSG);
   components ActiveMessageC;
