@@ -1,116 +1,107 @@
-print "********************************************";
-print "*                                          *";
-print "*             TOSSIM Script                *";
-print "*                                          *";
-print "********************************************";
+import sys
+import os 
+import time 
 
-import sys;
-import time;
+from TOSSIM import * 
 
-from TOSSIM import *;
+print("********************************************")
+print("*                                          *")
+print("*             TOSSIM Script                *")
+print("*                                          *")
+print("********************************************")
 
-t = Tossim([]);
+t = Tossim([]) 
 
+topofile="topology.txt"
+modelfile="meyer-heavy.txt"
 
-topofile="topology.txt";
-modelfile="meyer-heavy.txt";
+print("Initializing mac....")
+mac = t.mac() 
+print("Initializing radio channels....")
+radio = t.radio() 
+print("    using topology file: " + topofile)
+print("    using noise file: " + modelfile)
+print("Initializing simulator....")
+t.init() 
 
-
-print "Initializing mac....";
-mac = t.mac();
-print "Initializing radio channels....";
-radio=t.radio();
-print "    using topology file:",topofile;
-print "    using noise file:",modelfile;
-print "Initializing simulator....";
-t.init();
-
-
-#simulation_outfile = "simulation.txt";
-#print "Saving sensors simulation output to:", simulation_outfile;
-#simulation_out = open(simulation_outfile, "w");
-
-#out = open(simulation_outfile, "w");
-out = sys.stdout;
+simulation_outfile = os.path.join("..", "TOSSIM_LOG.txt")
+print("Saving sensors simulation output to " + simulation_outfile)
+out = open(simulation_outfile, ("w"))
 
 #Add debug channel
-print "Activate debug message on channel init"
-t.addChannel("init",out);
-print "Activate debug message on channel boot"
-t.addChannel("boot",out);
-print "Activate debug message on channel timer"
-t.addChannel("timer",out);
-print "Activate debug message on channel led_0"
-t.addChannel("led_0",out);
-print "Activate debug message on channel led_1"
-t.addChannel("led_1",out);
-print "Activate debug message on channel led_2"
-t.addChannel("led_2",out);
-print "Activate debug message on channel radio"
-t.addChannel("radio",out);
-print "Activate debug message on channel radio_send"
-t.addChannel("radio_send",out);
-print "Activate debug message on channel radio_rec"
-t.addChannel("radio_rec",out);
-print "Activate debug message on channel radio_pack"
-t.addChannel("radio_pack",out);
+print("Activate debug message on channel boot")
+t.addChannel("boot",out) 
+print("Activate debug message on channel timer")
+t.addChannel("timer",out) 
+print("Activate debug message on channel leds")
+t.addChannel("leds",out)
+print("Activate debug message on channel radio")
+t.addChannel("radio",out) 
+print("Activate debug message on channel radio_send")
+t.addChannel("radio_send",out) 
+print("Activate debug message on channel radio_rec")
+t.addChannel("radio_rec",out) 
+print("Activate debug message on channel radio_pack")
+t.addChannel("radio_pack",out) 
+print("Activate debug message on channel data")
+t.addChannel("data",out)
+
+#print("Activate debug message channel for node 6's leds")
+#t.addChannel("leds_6",out)
 
 
+# NODES CREATION
+num_nodes = 9 
+for i in range(1, num_nodes + 1):
+    print("Creating node " + str(i) + "...")
+    node1 = t.getNode(i) 
+    time = 0 
+    node1.bootAtTime(time) 
+    print(">>>Will boot at time " + str(time/t.ticksPerSecond()) + "[sec]")
 
 
-print "Creating node 1...";
-node1 =t.getNode(1);
-time1 = 0*t.ticksPerSecond(); #instant at which each node should be turned on
-node1.bootAtTime(time1);
-print ">>>Will boot at time",  time1/t.ticksPerSecond(), "[sec]";
-
-print "Creating node 2...";
-node2 = t.getNode(2);
-time2 = 0*t.ticksPerSecond();
-node2.bootAtTime(time2);
-print ">>>Will boot at time", time2/t.ticksPerSecond(), "[sec]";
-
-print "Creating radio channels..."
-f = open(topofile, "r");
+print("Creating radio channels...")
+f = open(topofile,("r"))
 lines = f.readlines()
 for line in lines:
   s = line.split()
   if (len(s) > 0):
-    print ">>>Setting radio channel from node ", s[0], " to node ", s[1], " with gain ", s[2], " dBm"
+    print(">>>Setting radio channel from node " + s[0] + " to node " + s[1] + " with gain " + s[2] + " dBm")
     radio.add(int(s[0]), int(s[1]), float(s[2]))
 
-
-#creation of channel model
-print "Initializing Closest Pattern Matching (CPM)...";
-noise = open(modelfile, "r")
+print("Initializing Closest Pattern Matching (CPM)...")
+noise = open(modelfile,("r"))
 lines = noise.readlines()
-compl = 0;
-mid_compl = 0;
+compl = 0 
+mid_compl = 0 
 
-print "Reading noise model data file:", modelfile;
-print "Loading:",
+print("    using noise model data file: " + modelfile)
+print("Loading: ")
 for line in lines:
-    str = line.strip()
-    if (str != "") and ( compl < 10000 ):
-        val = int(str)
-        mid_compl = mid_compl + 1;
+    s = line.strip()
+    if s !=("") and ( compl < 10000 ):
+        val = int(s)
+        mid_compl = mid_compl + 1 
         if ( mid_compl > 5000 ):
-            compl = compl + mid_compl;
-            mid_compl = 0;
+            compl = compl + mid_compl 
+            mid_compl = 0 
             sys.stdout.write ("#")
             sys.stdout.flush()
-        for i in range(1, 8):
+        for i in range(1, num_nodes + 1):  
             t.getNode(i).addNoiseTraceReading(val)
-print "Done!";
+print("Done!")
 
-for i in range(1, 8):
-    print ">>>Creating noise model for node:",i;
+for i in range(1, num_nodes + 1):
+    print(">>>Creating noise model for node " + str(i)) 
     t.getNode(i).createNoiseModel()
 
-print "Start simulation with TOSSIM! \n\n\n";
 
-for i in range(0,1200):
+# START SIMULATION
+print("Start simulation with TOSSIM! \n\n\n")
+
+num_events = 10000
+for i in range(0, num_events):
 	t.runNextEvent()
-	
-print "\n\n\nSimulation finished!";
 
+# END SIMULATION	
+print("\n\n\nSimulation finished!")
