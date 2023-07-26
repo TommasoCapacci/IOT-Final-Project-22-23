@@ -15,6 +15,7 @@ module RadioRouteC @safe() {
     interface Timer<TMilli> as Timer0;
     interface Timer<TMilli> as Timer1;
     interface Packet;
+    interface Random;
   }
 
 } implementation {
@@ -22,11 +23,16 @@ module RadioRouteC @safe() {
 
   /****** VARIABLES *******/
 
-  message_t queued_packet;
+  message_t queued_message;
+  radio_route_msg_t* packet;
   bool locked = FALSE;
 
   uint16_t requestAddress = 0;
-  radio_route_msg_t* request = NULL;
+  message_t request;
+  
+  uint8_t topic = 0;
+  uint8_t id = 0;
+  Node* temp = NULL;
 
   Node* connections = NULL;
   Node* subscriptions[3] = {NULL, NULL, NULL};
@@ -34,34 +40,34 @@ module RadioRouteC @safe() {
 
   /****** FUNCTIONS PROTOTYPES*******/
   
-  void printPacketDebug(radio_route_msg_t* packet);
+  void printPacketDebug(radio_route_msg_t* payload);
 
   Node* addNode(Node* list, uint8_t id);
   bool ID(Node* list, uint8_t id);
 
-  void handleRetransmission(uint16_t address, radio_route_msg_t* packet);
-  void handleCONNECT(radio_route_msg_t* packet);
-  void handleCONNACK(radio_route_msg_t* packet);
-  void handleSUB(radio_route_msg_t* packet);
-  void handleSUBACK(radio_route_msg_t* packet);
-  void handlePUBLISH(radio_route_msg_t* packet);
+  void handleRetransmission(uint16_t address, message_t* message);
+  void handleCONNECT(message_t* message);
+  void handleCONNACK(message_t* message);
+  void handleSUB(message_t* message);
+  void handleSUBACK(message_t* message);
+  void handlePUBLISH(message_t* message);
 
-  bool generate_send(uint16_t address, radio_route_msg_t* packet);
+  bool generate_send(uint16_t address, message_t* message);
   
 
   /****** FUNCTIONS *******/
   
-  void printPacketDebug(radio_route_msg_t* packet){
+  void printPacketDebug(radio_route_msg_t* payload){
   /*
   * Print packet's content in a structured way
   */
-    dbg("radio_pack", "Packet type: %d\n", packet->message_type);
-    dbg("radio_pack", "Packet id: %d\n", packet->id);
-    dbg("radio_pack", "Packet topic: %d\n", packet->topic);
-    dbg("radio_pack", "Packet payload: %s\n", packet->payload);
+    dbg("radio_pack", "Packet type: %d\n", payload->message_type);
+    dbg("radio_pack", "Packet id: %d\n", payload->id);
+    dbg("radio_pack", "Packet topic: %d\n", payload->topic);
+    dbg("radio_pack", "Packet payload: %s\n", payload->payload);
   }
 
-  Node* addNode(Node* list, uint16_t id){
+  Node* addNode(Node* list, uint8_t id){
   /*
   * Add a node to the head of the specified list
   */
@@ -84,65 +90,74 @@ module RadioRouteC @safe() {
     return FALSE;
   }
 
-  void handleRetransmission(uint16_t address, radio_route_msg_t* packet){
+  void handleRetransmission(uint16_t address, message_t* message){
   /*
   * Handle retransmission of the specified packet
   */
-    request = packet;
+    request = message;
     requestAddress = address;
     call Timer0.startOneShot(ACK_TIMEOUT);
   }
 
-  void handleCONNECT(radio_route_msg_t* packet){
+  void handleCONNECT(message_t* message){
+    packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     connections = addNode(connections, packet->id);
     packet->message_type = CONNACK;
-    generate_send(packet->id, packet);
+    generate_send(packet->id, message);
   }
 
-  void handleCONNACK(radio_route_msg_t* packet){
-    if (request != NULL && request->message_type == CONNECT){
-      call Timer0.stop();
-      request = NULL;
+  void handleCONNACK(message_t* message){
+    if (request != NULL){
+      packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
+      if (packet->message_type == CONNECT){
+        call Timer0.stop();
+        request = NULL;
+      }
 
       // generate and send random subscription request
-      uint8_t topic = call Random.rand32() % 3;
+      packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+      topic = call Random.rand32() % 3;
       packet->id = TOS_NODE_ID;
       packet->message_type = SUB;
       packet->topic = topic;
-      generate_send(1, packet);
-      handleRetransmission(1, packet);
+      generate_send(1, message);
     }
   }
 
-  void handleSUB(radio_route_msg_t* packet){
+  void handleSUB(message_t* message){
+  	packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     id = packet->id;
     topic = packet->topic;
-    if (searchID(connections[topic], id) && !searchID(subscriptions[topic], id)){
+    if (searchID(connections, id) && !searchID(subscriptions[topic], id)){
       subscriptions[topic] = addNode(subscriptions[topic], id);
       packet->message_type = SUBACK;
-      generate_send(id, packet);
-      handleRetransmission(id, packet);
+      generate_send(id, message);
+      handleRetransmission(id, message);
     }
   }
 
-  void handleSUBACK(radio_route_msg_t* packet){
-    if (request != NULL && request->message_type == SUB){
-      call Timer0.stop();
-      request = NULL;
+  void handleSUBACK(message_t* message){
+    if (request != NULL){
+      packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
+      if (packet->message_type == CONNECT){
+        call Timer0.stop();
+        request = NULL;
+      }
 
       // generate publish request
-      call Timer1.startPeriodic(PUBLISH_TIMEOUT);
+      call Timer1.startPeriodic(PUB_INTERVAL);
     }
   }
 
-  void handlePUBLISH(radio_route_msg_t* packet){
+  void handlePUBLISH(message_t* message){
     if (TOS_NODE_ID == 1){
+      packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
       id = packet->id;
       topic = packet->topic;
       temp = subscriptions[topic];
       while (temp != NULL){
         if (temp->id != id){
-          generate_send(temp->id, packet);
+          generate_send(temp->id, message);
           temp = temp->next;
         }
       } 
@@ -151,11 +166,11 @@ module RadioRouteC @safe() {
     }
   }  
 
-  bool generate_send(uint16_t address, message_t* packet){
+  bool generate_send(uint16_t address, message_t* message){
   /*
   * Send the specified packet to the specified address
   */
-    if (call AMSend.send(address, packet, sizeof(radio_route_msg_t)) == SUCCESS){
+    if (call AMSend.send(address, message, sizeof(radio_route_msg_t)) == SUCCESS){
       locked = TRUE;
       dbg("radio_send", "Sending packet at time %s:\n", sim_time_string());
       printPacketDebug(packet);
@@ -177,15 +192,15 @@ module RadioRouteC @safe() {
       dbg("radio","Radio on on node %d!\n", TOS_NODE_ID);
       if (TOS_NODE_ID != 1){
         // send connect message to node 1 (even in broadcast, should be more realistic)
-        radio_route_msg_t* sdm = (radio_route_msg_t*)call Packet.getPayload(queued_packet, sizeof(radio_route_msg_t));
+        packet = (radio_route_msg_t*)call Packet.getPayload(queued_message, sizeof(radio_route_msg_t));
         if (len != sizeof(radio_route_msg_t) || sdm == NULL) {
           return bufPtr;
         }
 
         sdm->id = TOS_NODE_ID;
         sdm->message_type = CONNECT;
-        generate_send(AM_BROADCAST_ADDR, queued_packet);
-        handleRetransmission(AM_BROADCAST_ADDR, queued_packet);
+        generate_send(AM_BROADCAST_ADDR, queued_message);
+        handleRetransmission(AM_BROADCAST_ADDR, queued_message);
       }
     } else {
       dbgerror("radio", "Radio failed to start, retrying...\n");
@@ -209,7 +224,7 @@ module RadioRouteC @safe() {
   /*
   * Use this timer to handle pubblications
   */
-    uint8_t topic = call Random.rand32() % 3;
+    topic = call Random.rand32() % 3;
     packet->id = TOS_NODE_ID;
     packet->message_type = PUBLISH;
     packet->topic = topic;
@@ -220,27 +235,27 @@ module RadioRouteC @safe() {
   /*
   * Parse the received packet and prepare the relative response
   */
-    queued_packet = *bufPtr;
-    radio_route_msg_t* rcm = (radio_route_msg_t*)payload;
+    queued_message = *bufPtr;
+    packet = (radio_route_msg_t*)payload;
     
     //dbg("radio_rec", "Received packet at time %s:\n", sim_time_string());
     //printPacketDebug(rcm);
     
-    switch (rcm->message_type){
+    switch (packet->message_type){
       case CONNECT:
-        handleCONNECT(rcm);
+        handleCONNECT(bufPtr);
       break;
       case CONNACK:
-        handleCONNACK(rcm);
+        handleCONNACK(bufPtr);
       break;
       case SUB:
-        handleSUB(rcm);
+        handleSUB(bufPtr);
       break;
       case SUBACK:
-        handleSUBACK(rcm);
+        handleSUBACK(bufPtr);
       break;
       case PUBLISH:
-        handlePUBLISH(rcm);
+        handlePUBLISH(bufPtr);
       break;
     }
   }
@@ -249,7 +264,7 @@ module RadioRouteC @safe() {
   /* 
   * Check if the right packet has been sent 
   */ 
-    if (&queued_packet == bufPtr) 
+    if (&queued_message == bufPtr) 
       locked = FALSE;
   }
 }
