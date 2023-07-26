@@ -16,11 +16,11 @@ typedef nx_struct radio_route_msg {
 
 typedef struct Node{
 	uint16_t id;
-	Node* next;
+	struct Node* next;
 } Node;
 
 
-// Other constants
+/********** CONSTANTS *********/
 enum{
 	AM_RADIO_COUNT_MSG = 10,
 	ACK_TIMEOUT = 500,

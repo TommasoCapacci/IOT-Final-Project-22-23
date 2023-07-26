@@ -3,9 +3,11 @@
 
 
 module RadioRouteC @safe() {
+
+
+  /****** INTERFACES *****/
+
   uses {
-  
-    /****** INTERFACES *****/
     interface Boot;
     interface Receive;
     interface AMSend;
@@ -13,8 +15,8 @@ module RadioRouteC @safe() {
     interface Timer<TMilli> as Timer0;
     interface Timer<TMilli> as Timer1;
     interface Packet;
-    
   }
+
 } implementation {
   
 
@@ -37,7 +39,7 @@ module RadioRouteC @safe() {
   Node* addNode(Node* list, uint8_t id);
   bool ID(Node* list, uint8_t id);
 
-  void handleRetransmission(uint16_t address, radio_route_msg_t* packet)
+  void handleRetransmission(uint16_t address, radio_route_msg_t* packet);
   void handleCONNECT(radio_route_msg_t* packet);
   void handleCONNACK(radio_route_msg_t* packet);
   void handleSUB(radio_route_msg_t* packet);

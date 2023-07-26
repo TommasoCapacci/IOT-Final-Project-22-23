@@ -3,7 +3,9 @@
 configuration RadioRouteAppC {}
 implementation {
  
+
   /****** COMPONENTS *****/
+
   components MainC, RadioRouteC as App;
   // add other components down here
   components new AMReceiverC(AM_RADIO_COUNT_MSG);
@@ -12,7 +14,9 @@ implementation {
   components new TimerMilliC() as Timer0;
   components new TimerMilliC() as Timer1;
 
+
   /****** INTERFACES *****/
+  
   App.Boot -> MainC.Boot;
   // wire other interfaces down here
   App.Receive -> AMReceiverC;
