@@ -28,7 +28,7 @@ module RadioRouteC @safe() {
   bool locked = FALSE;
 
   uint16_t requestAddress = 0;
-  message_t request;
+  message_t* request;
   
   uint8_t topic = 0;
   uint8_t id = 0;
@@ -192,15 +192,11 @@ module RadioRouteC @safe() {
       dbg("radio","Radio on on node %d!\n", TOS_NODE_ID);
       if (TOS_NODE_ID != 1){
         // send connect message to node 1 (even in broadcast, should be more realistic)
-        packet = (radio_route_msg_t*)call Packet.getPayload(queued_message, sizeof(radio_route_msg_t));
-        if (len != sizeof(radio_route_msg_t) || sdm == NULL) {
-          return bufPtr;
-        }
-
-        sdm->id = TOS_NODE_ID;
-        sdm->message_type = CONNECT;
-        generate_send(AM_BROADCAST_ADDR, queued_message);
-        handleRetransmission(AM_BROADCAST_ADDR, queued_message);
+        packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
+        packet->id = TOS_NODE_ID;
+        packet->message_type = CONNECT;
+        generate_send(AM_BROADCAST_ADDR, &queued_message);
+        handleRetransmission(AM_BROADCAST_ADDR, &queued_message);
       }
     } else {
       dbgerror("radio", "Radio failed to start, retrying...\n");
@@ -224,11 +220,12 @@ module RadioRouteC @safe() {
   /*
   * Use this timer to handle pubblications
   */
+    packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
     topic = call Random.rand32() % 3;
     packet->id = TOS_NODE_ID;
     packet->message_type = PUBLISH;
     packet->topic = topic;
-    generate_send(1, packet);
+    generate_send(1, &queued_message);
   }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
@@ -258,6 +255,9 @@ module RadioRouteC @safe() {
         handlePUBLISH(bufPtr);
       break;
     }
+
+    return bufPtr;
+    
   }
   
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
