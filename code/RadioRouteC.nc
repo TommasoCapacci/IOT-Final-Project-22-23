@@ -168,7 +168,7 @@ module RadioRouteC @safe() {
 
   bool generate_send(uint16_t address, message_t* message){
   /*
-  * Send the specified packet to the specified address
+  * Send the specified message to the specified address
   */
     if (call AMSend.send(address, message, sizeof(radio_route_msg_t)) == SUCCESS){
       locked = TRUE;
@@ -257,7 +257,7 @@ module RadioRouteC @safe() {
     }
 
     return bufPtr;
-    
+
   }
   
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
