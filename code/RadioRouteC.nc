@@ -73,6 +73,7 @@ module RadioRouteC @safe() {
   * Search a node inside the specified list
   */
     Node* current = list;
+
     while (current != NULL){
       if (current->id == node_id)
         return TRUE;
@@ -85,9 +86,10 @@ module RadioRouteC @safe() {
   /*
   * Add a node to the head of the specified list
   */
+    Node* newNode = (Node*)malloc(sizeof(Node));
+
     if(searchID(list, node_id))
       return list;
-    Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->id = node_id;
     newNode->next = list;
     return newNode;
@@ -98,6 +100,7 @@ module RadioRouteC @safe() {
   * Print all the nodes inside the specified list
   */
     Node* current = list;
+
     while (current != NULL){
       dbg_clear("Data", "\tNode id: %d\n", current->id);
       current = current->next;
@@ -128,18 +131,18 @@ module RadioRouteC @safe() {
       if (packet->message_type == CONNECT){
         call Timer0.stop();
         request = NULL;
+
+        // generate and send random subscription request
+        packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+        packet->id = TOS_NODE_ID;
+        packet->message_type = SUB;
+        packet->topic = call Random.rand32() % 3;
+        generate_send(1, message);
+        handleRetransmission(1, message);
+
+        // generate publish request
+        call Timer1.startPeriodic(PUB_INTERVAL);
       }
-
-      // generate and send random subscription request
-      packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-      packet->id = TOS_NODE_ID;
-      packet->message_type = SUB;
-      packet->topic = call Random.rand32() % 3;
-      generate_send(1, message);
-      handleRetransmission(1, message);
-
-      // generate publish request
-      call Timer1.startPeriodic(PUB_INTERVAL);
     }
   }
 
@@ -147,7 +150,7 @@ module RadioRouteC @safe() {
   	packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     id = packet->id;
     topic = packet->topic;
-    if (searchID(connections, id) && !searchID(subscriptions[topic], id)){
+    if (searchID(connections, id)){
       subscriptions[topic] = addNode(subscriptions[topic], id);
       dbg("Data", "Printing list of subscriptions on topic %d:\n", topic);
       printList(subscriptions[topic]);
