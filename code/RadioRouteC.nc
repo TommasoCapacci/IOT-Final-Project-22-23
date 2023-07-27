@@ -43,7 +43,8 @@ module RadioRouteC @safe() {
   void printPacketDebug(radio_route_msg_t* payload);
 
   Node* addNode(Node* list, uint8_t node_id);
-  bool ID(Node* list, uint8_t node_id);
+  bool searchID(Node* list, uint8_t node_id);
+  void printList(Node* list);
 
   void handleRetransmission(uint16_t address, message_t* message);
   void handleCONNECT(message_t* message);
@@ -61,10 +62,10 @@ module RadioRouteC @safe() {
   /*
   * Print packet's content in a structured way
   */
-    dbg("Data", "Packet type: %d\n", payload->message_type);
-    dbg("Data", "Packet id: %d\n", payload->id);
-    dbg("Data", "Packet topic: %d\n", payload->topic);
-    dbg("Data", "Packet payload: %s\n", payload->payload);
+    dbg_clear("Data", "\tPacket type: %d\n", payload->message_type);
+    dbg_clear("Data", "\tPacket id: %d\n", payload->id);
+    dbg_clear("Data", "\tPacket topic: %d\n", payload->topic);
+    dbg_clear("Data", "\tPacket payload: %d\n", payload->payload);
   }
 
   Node* addNode(Node* list, uint8_t node_id){
@@ -90,6 +91,17 @@ module RadioRouteC @safe() {
     return FALSE;
   }
 
+  void printList(Node* list){
+  /*
+  * Print all the nodes inside the specified list
+  */
+    Node* current = list;
+    while (current != NULL){
+      dbg_clear("Data", "\tNode id: %d\n", current->id);
+      current = current->next;
+    }
+  }
+
   void handleRetransmission(uint16_t address, message_t* message){
   /*
   * Handle retransmission of the specified packet
@@ -102,6 +114,8 @@ module RadioRouteC @safe() {
   void handleCONNECT(message_t* message){
     packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     connections = addNode(connections, packet->id);
+    dbg("Data", "Printing list of active connections:\n");
+    printList(connections);
     packet->message_type = CONNACK;
     generate_send(packet->id, message);
   }
@@ -116,13 +130,13 @@ module RadioRouteC @safe() {
 
       // generate and send random subscription request
       packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-      topic = call Random.rand32() % 3;
       packet->id = TOS_NODE_ID;
       packet->message_type = SUB;
-      packet->topic = topic;
+      packet->topic = call Random.rand32() % 3;
       generate_send(1, message);
+
       handleRetransmission(1, message);
-      
+
       // generate publish request
       call Timer1.startPeriodic(PUB_INTERVAL);
     }
@@ -134,6 +148,8 @@ module RadioRouteC @safe() {
     topic = packet->topic;
     if (searchID(connections, id) && !searchID(subscriptions[topic], id)){
       subscriptions[topic] = addNode(subscriptions[topic], id);
+      dbg("Data", "Printing list of subscriptions on topic %d:\n", topic);
+      printList(subscriptions[topic]);
       packet->message_type = SUBACK;
       generate_send(id, message);
     }
@@ -172,7 +188,7 @@ module RadioRouteC @safe() {
   */
     if (call AMSend.send(address, message, sizeof(radio_route_msg_t)) == SUCCESS){
       locked = TRUE;
-      dbg("Radio_send", "Sending packet at time %s:\n", sim_time_string());
+      dbg("Radio_send", "Sending packet to %d at time %s:\n", address, sim_time_string());
       printPacketDebug(packet);
       return TRUE;
     }
@@ -221,12 +237,12 @@ module RadioRouteC @safe() {
   /*
   * Use this timer to handle pubblications
   */
-  	dbgerror("Timer", "Publishing a message. \n");
     packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
-    topic = call Random.rand32() % 3;
     packet->id = TOS_NODE_ID;
     packet->message_type = PUBLISH;
-    packet->topic = topic;
+    packet->topic = call Random.rand32() % 3;
+    packet->payload = call Random.rand32() % 101;
+    dbg("Timer", "Publishing a message on topic %d. \n", packet->topic);
     generate_send(1, &queued_message);
   }
 
