@@ -42,8 +42,8 @@ module RadioRouteC @safe() {
   
   void printPacketDebug(radio_route_msg_t* payload);
 
-  Node* addNode(Node* list, uint8_t id);
-  bool ID(Node* list, uint8_t id);
+  Node* addNode(Node* list, uint8_t node_id);
+  bool ID(Node* list, uint8_t node_id);
 
   void handleRetransmission(uint16_t address, message_t* message);
   void handleCONNECT(message_t* message);
@@ -61,29 +61,29 @@ module RadioRouteC @safe() {
   /*
   * Print packet's content in a structured way
   */
-    dbg("radio_pack", "Packet type: %d\n", payload->message_type);
-    dbg("radio_pack", "Packet id: %d\n", payload->id);
-    dbg("radio_pack", "Packet topic: %d\n", payload->topic);
-    dbg("radio_pack", "Packet payload: %s\n", payload->payload);
+    dbg("Data", "Packet type: %d\n", payload->message_type);
+    dbg("Data", "Packet id: %d\n", payload->id);
+    dbg("Data", "Packet topic: %d\n", payload->topic);
+    dbg("Data", "Packet payload: %s\n", payload->payload);
   }
 
-  Node* addNode(Node* list, uint8_t id){
+  Node* addNode(Node* list, uint8_t node_id){
   /*
   * Add a node to the head of the specified list
   */
     Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->id = id;
+    newNode->id = node_id;
     newNode->next = list;
     return newNode;
   }
 
-  bool searchID(Node* list, uint8_t id){
+  bool searchID(Node* list, uint8_t node_id){
   /*
   * Search a node inside the specified list
   */
     Node* current = list;
     while (current != NULL){
-      if (current->id == id)
+      if (current->id == node_id)
         return TRUE;
       current = current->next;
     }
@@ -172,7 +172,7 @@ module RadioRouteC @safe() {
   */
     if (call AMSend.send(address, message, sizeof(radio_route_msg_t)) == SUCCESS){
       locked = TRUE;
-      dbg("radio_send", "Sending packet at time %s:\n", sim_time_string());
+      dbg("Radio_send", "Sending packet at time %s:\n", sim_time_string());
       printPacketDebug(packet);
       return TRUE;
     }
@@ -183,13 +183,13 @@ module RadioRouteC @safe() {
   /****** EVENT HANDLERS *******/
   
   event void Boot.booted() {
-    dbg("boot","Application booted.\n");
+    dbg("Boot","Application booted.\n");
     call AMControl.start();
   }
 
   event void AMControl.startDone(error_t err) {
     if (err == SUCCESS){
-      dbg("radio","Radio on on node %d!\n", TOS_NODE_ID);
+      dbg("Radio","Radio on on node %d!\n", TOS_NODE_ID);
       if (TOS_NODE_ID != 1){
         // send connect message to node 1 (even in broadcast, should be more realistic)
         packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
@@ -199,19 +199,20 @@ module RadioRouteC @safe() {
         handleRetransmission(AM_BROADCAST_ADDR, &queued_message);
       }
     } else {
-      dbgerror("radio", "Radio failed to start, retrying...\n");
+      dbgerror("Radio", "Radio failed to start, retrying...\n");
       call AMControl.start();
     }
   }
 
   event void AMControl.stopDone(error_t err) {
-    dbg("boot", "Radio stopped!\n");
+    dbg("Radio", "Radio stopped!\n");
   }
   
   event void Timer0.fired() {
   /*
   * Use this timer to handle retransmissions
   */
+  	dbgerror("Timer", "Request was not acknowledged in time. Resending.\n");
     generate_send(requestAddress, request);
     call Timer0.startOneShot(ACK_TIMEOUT);
   }
@@ -220,6 +221,7 @@ module RadioRouteC @safe() {
   /*
   * Use this timer to handle pubblications
   */
+  	dbgerror("Timer", "Publishing a message. \n");
     packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
     topic = call Random.rand32() % 3;
     packet->id = TOS_NODE_ID;
@@ -235,8 +237,8 @@ module RadioRouteC @safe() {
     queued_message = *bufPtr;
     packet = (radio_route_msg_t*)payload;
     
-    //dbg("radio_rec", "Received packet at time %s:\n", sim_time_string());
-    //printPacketDebug(rcm);
+    dbg("Radio_rec", "Received packet at time %s:\n", sim_time_string());
+    printPacketDebug(packet);
     
     switch (packet->message_type){
       case CONNECT:

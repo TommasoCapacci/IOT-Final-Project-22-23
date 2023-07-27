@@ -4,11 +4,11 @@ import time
 
 from TOSSIM import * 
 
-print("********************************************")
+print("\n********************************************")
 print("*                                          *")
 print("*             TOSSIM Script                *")
 print("*                                          *")
-print("********************************************")
+print("********************************************\n")
 
 t = Tossim([]) 
 
@@ -24,30 +24,15 @@ print("    using noise file: " + modelfile)
 print("Initializing simulator....")
 t.init() 
 
-simulation_outfile = os.path.join("..", "TOSSIM_LOG.txt")
-print("Saving sensors simulation output to " + simulation_outfile)
+simulation_outfile = "TOSSIM_LOG.txt"
+print("Saving simulation's output to " + simulation_outfile)
 out = open(simulation_outfile, ("w"))
 
-#Add debug channel
-print("Activate debug message on channel boot")
-t.addChannel("boot",out) 
-print("Activate debug message on channel timer")
-t.addChannel("timer",out) 
-print("Activate debug message on channel leds")
-t.addChannel("leds",out)
-print("Activate debug message on channel radio")
-t.addChannel("radio",out) 
-print("Activate debug message on channel radio_send")
-t.addChannel("radio_send",out) 
-print("Activate debug message on channel radio_rec")
-t.addChannel("radio_rec",out) 
-print("Activate debug message on channel radio_pack")
-t.addChannel("radio_pack",out) 
-print("Activate debug message on channel data")
-t.addChannel("data",out)
-
-#print("Activate debug message channel for node 6's leds")
-#t.addChannel("leds_6",out)
+# DEBUG CHANELS
+channels = ["Boot", "Timer", "Radio", "Radio_send", "Radio_rec", "Data"]
+for c in channels:
+	print("Activate debug message on channel " + c)
+	t.addChannel(c, out) 
 
 
 # NODES CREATION
@@ -60,6 +45,7 @@ for i in range(1, num_nodes + 1):
     print(">>>Will boot at time " + str(time/t.ticksPerSecond()) + "[sec]")
 
 
+# RADIO CHANNELS CREATION
 print("Creating radio channels...")
 f = open(topofile,("r"))
 lines = f.readlines()
@@ -69,6 +55,8 @@ for line in lines:
     print(">>>Setting radio channel from node " + s[0] + " to node " + s[1] + " with gain " + s[2] + " dBm")
     radio.add(int(s[0]), int(s[1]), float(s[2]))
 
+
+# NOISE MODELS CREATION
 print("Initializing Closest Pattern Matching (CPM)...")
 noise = open(modelfile,("r"))
 lines = noise.readlines()
