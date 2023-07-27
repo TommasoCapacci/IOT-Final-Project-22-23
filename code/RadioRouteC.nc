@@ -43,7 +43,8 @@ module RadioRouteC @safe() {
   void printPacketDebug(radio_route_msg_t* payload);
 
   Node* addNode(Node* list, uint8_t node_id);
-  bool ID(Node* list, uint8_t node_id);
+  bool searchID(Node* list, uint8_t node_id);
+  void printList(Node* list);
 
   void handleRetransmission(uint16_t address, message_t* message);
   void handleCONNECT(message_t* message);
@@ -90,6 +91,17 @@ module RadioRouteC @safe() {
     return FALSE;
   }
 
+  void printList(Node* list){
+  /*
+  * Print all the nodes inside the specified list
+  */
+    Node* current = list;
+    while (current != NULL){
+      dbg("Data", "Node id: %d\n", current->id);
+      current = current->next;
+    }
+  }
+
   void handleRetransmission(uint16_t address, message_t* message){
   /*
   * Handle retransmission of the specified packet
@@ -102,6 +114,7 @@ module RadioRouteC @safe() {
   void handleCONNECT(message_t* message){
     packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     connections = addNode(connections, packet->id);
+    printList(connections);
     packet->message_type = CONNACK;
     generate_send(packet->id, message);
   }
@@ -130,6 +143,7 @@ module RadioRouteC @safe() {
     topic = packet->topic;
     if (searchID(connections, id) && !searchID(subscriptions[topic], id)){
       subscriptions[topic] = addNode(subscriptions[topic], id);
+      printList(subscriptions[topic]);
       packet->message_type = SUBACK;
       generate_send(id, message);
       handleRetransmission(id, message);
