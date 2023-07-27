@@ -130,10 +130,9 @@ module RadioRouteC @safe() {
 
       // generate and send random subscription request
       packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-      topic = call Random.rand32() % 3;
       packet->id = TOS_NODE_ID;
       packet->message_type = SUB;
-      packet->topic = topic;
+      packet->topic = call Random.rand32() % 3;
       generate_send(1, message);
     }
   }
@@ -239,10 +238,10 @@ module RadioRouteC @safe() {
   */
   	dbgerror("Timer", "Publishing a message. \n");
     packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
-    topic = call Random.rand32() % 3;
     packet->id = TOS_NODE_ID;
     packet->message_type = PUBLISH;
-    packet->topic = topic;
+    packet->topic = call Random.rand32() % 3;
+    packet->payload = call Random.rand32() % 101;
     generate_send(1, &queued_message);
   }
 
