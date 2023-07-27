@@ -236,12 +236,12 @@ module RadioRouteC @safe() {
   /*
   * Use this timer to handle pubblications
   */
-  	dbgerror("Timer", "Publishing a message. \n");
     packet = (radio_route_msg_t*)call Packet.getPayload(&queued_message, sizeof(radio_route_msg_t));
     packet->id = TOS_NODE_ID;
     packet->message_type = PUBLISH;
     packet->topic = call Random.rand32() % 3;
     packet->payload = call Random.rand32() % 101;
+    dbg("Timer", "Publishing a message on topic %d. \n", packet->topic);
     generate_send(1, &queued_message);
   }
 
