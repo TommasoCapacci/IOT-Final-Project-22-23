@@ -188,7 +188,7 @@ module RadioRouteC @safe() {
   */
     if (call AMSend.send(address, message, sizeof(radio_route_msg_t)) == SUCCESS){
       locked = TRUE;
-      dbg("Radio_send", "Sending packet at time %s:\n", sim_time_string());
+      dbg("Radio_send", "Sending packet to %d at time %s:\n", address, sim_time_string());
       printPacketDebug(packet);
       return TRUE;
     }
