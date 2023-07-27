@@ -65,7 +65,7 @@ module RadioRouteC @safe() {
     dbg_clear("Data", "\tPacket type: %d\n", payload->message_type);
     dbg_clear("Data", "\tPacket id: %d\n", payload->id);
     dbg_clear("Data", "\tPacket topic: %d\n", payload->topic);
-    dbg_clear("Data", "\tPacket payload: %s\n", payload->payload);
+    dbg_clear("Data", "\tPacket payload: %d\n", payload->payload);
   }
 
   Node* addNode(Node* list, uint8_t node_id){
