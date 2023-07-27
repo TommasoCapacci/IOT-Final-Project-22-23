@@ -131,18 +131,18 @@ module RadioRouteC @safe() {
       if (packet->message_type == CONNECT){
         call Timer0.stop();
         request = NULL;
-
-        // generate and send random subscription request
-        packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-        packet->id = TOS_NODE_ID;
-        packet->message_type = SUB;
-        packet->topic = call Random.rand32() % 3;
-        generate_send(1, message);
-        handleRetransmission(1, message);
-
-        // generate publish request
-        call Timer1.startPeriodic(PUB_INTERVAL);
       }
+
+      // generate and send random subscription request
+      packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+      packet->id = TOS_NODE_ID;
+      packet->message_type = SUB;
+      packet->topic = call Random.rand32() % 3;
+      generate_send(1, message);
+      handleRetransmission(1, message);
+
+      // generate publish request
+      call Timer1.startPeriodic(PUB_INTERVAL);
     }
   }
 
@@ -162,7 +162,7 @@ module RadioRouteC @safe() {
   void handleSUBACK(message_t* message){
     if (request != NULL){
       packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
-      if (packet->message_type == CONNECT){
+      if (packet->message_type == SUB){
         call Timer0.stop();
         request = NULL;
       }
