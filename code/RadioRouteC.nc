@@ -42,8 +42,8 @@ module RadioRouteC @safe() {
   
   void printPacketDebug(radio_route_msg_t* payload);
 
-  Node* addNode(Node* list, uint8_t node_id);
   bool searchID(Node* list, uint8_t node_id);
+  Node* addNode(Node* list, uint8_t node_id);
   void printList(Node* list);
 
   void handleRetransmission(uint16_t address, message_t* message);
@@ -68,16 +68,6 @@ module RadioRouteC @safe() {
     dbg_clear("Data", "\tPacket payload: %d\n", payload->payload);
   }
 
-  Node* addNode(Node* list, uint8_t node_id){
-  /*
-  * Add a node to the head of the specified list
-  */
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->id = node_id;
-    newNode->next = list;
-    return newNode;
-  }
-
   bool searchID(Node* list, uint8_t node_id){
   /*
   * Search a node inside the specified list
@@ -89,6 +79,18 @@ module RadioRouteC @safe() {
       current = current->next;
     }
     return FALSE;
+  }
+
+  Node* addNode(Node* list, uint8_t node_id){
+  /*
+  * Add a node to the head of the specified list
+  */
+    if(searchID(list, node_id))
+      return list;
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->id = node_id;
+    newNode->next = list;
+    return newNode;
   }
 
   void printList(Node* list){
@@ -134,7 +136,6 @@ module RadioRouteC @safe() {
       packet->message_type = SUB;
       packet->topic = call Random.rand32() % 3;
       generate_send(1, message);
-
       handleRetransmission(1, message);
 
       // generate publish request
