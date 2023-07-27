@@ -62,10 +62,10 @@ module RadioRouteC @safe() {
   /*
   * Print packet's content in a structured way
   */
-    dbg("Data", "Packet type: %d\n", payload->message_type);
-    dbg("Data", "Packet id: %d\n", payload->id);
-    dbg("Data", "Packet topic: %d\n", payload->topic);
-    dbg("Data", "Packet payload: %s\n", payload->payload);
+    dbg_clear("Data", "\tPacket type: %d\n", payload->message_type);
+    dbg_clear("Data", "\tPacket id: %d\n", payload->id);
+    dbg_clear("Data", "\tPacket topic: %d\n", payload->topic);
+    dbg_clear("Data", "\tPacket payload: %s\n", payload->payload);
   }
 
   Node* addNode(Node* list, uint8_t node_id){
@@ -97,7 +97,7 @@ module RadioRouteC @safe() {
   */
     Node* current = list;
     while (current != NULL){
-      dbg("Data", "Node id: %d\n", current->id);
+      dbg_clear("Data", "\tNode id: %d\n", current->id);
       current = current->next;
     }
   }
@@ -114,6 +114,7 @@ module RadioRouteC @safe() {
   void handleCONNECT(message_t* message){
     packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
     connections = addNode(connections, packet->id);
+    dbg("Data", "Printing list of active connections:\n");
     printList(connections);
     packet->message_type = CONNACK;
     generate_send(packet->id, message);
@@ -143,6 +144,7 @@ module RadioRouteC @safe() {
     topic = packet->topic;
     if (searchID(connections, id) && !searchID(subscriptions[topic], id)){
       subscriptions[topic] = addNode(subscriptions[topic], id);
+      dbg("Data", "Printing list of subscriptions on topic %d:\n", topic);
       printList(subscriptions[topic]);
       packet->message_type = SUBACK;
       generate_send(id, message);
