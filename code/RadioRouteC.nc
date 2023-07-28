@@ -181,8 +181,6 @@ module RadioRouteC @safe() {
           temp = temp->next;
         }
       } 
-    } else {
-      printPacketDebug(packet);
     }
   }  
 
