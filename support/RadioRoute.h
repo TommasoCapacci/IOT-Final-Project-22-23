@@ -5,8 +5,8 @@
 /*********** MESSAGE TYPE **********/
 
 typedef nx_struct radio_route_msg {
-	nx_uint16_t id;
 	nx_uint16_t message_type;
+	nx_uint16_t id;
 	nx_uint16_t topic;
 	nx_uint16_t payload;
 } radio_route_msg_t;
@@ -25,6 +25,7 @@ enum{
 	AM_RADIO_COUNT_MSG = 10,
 	ACK_TIMEOUT = 500,
 	PUB_INTERVAL = 200,
+	PACKET_POOL_SIZE = 10,
 	TEMP_TOPIC = 0,
 	HUM_TOPIC = 1,
 	LUM_TOPIC =2,

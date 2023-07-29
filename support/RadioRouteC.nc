@@ -15,19 +15,11 @@ module RadioRouteC @safe() {
     interface SplitControl as AMControl;
     interface Timer<TMilli> as Timer0;
     interface Timer<TMilli> as Timer1;
-    interface Timer<TMilli> as Timer2;
     interface Packet;
     interface Random;
   }
 }
 implementation {
-
-
-  // Constants
-  
-  enum{
-  	PACKET_POOL_SIZE = 10
-  };
   
   
   // Variables
@@ -40,7 +32,7 @@ implementation {
   
   // Functions prototypes
   
-  void generate_send (uint16_t address, message_t* packet);
+  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload);
   
   
   // Tasks prototypes
@@ -50,9 +42,17 @@ implementation {
   
   // Functions
   
-  void generate_send (uint16_t address, message_t* packet){
+  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload){
+  	message_t* message = (message_t*) malloc(sizeof(message_t));
+    radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+  
+    packet->message_type = message_type;
+    packet->id = id;
+    packet->topic = topic;
+    packet->payload = payload;
+  	
   	atomic{
-  	  packetsPool[head] = packet;
+  	  packetsPool[head] = message;
   	  addressesPool[head] = address;
  	    head = (head + 1) % PACKET_POOL_SIZE;
   	}
@@ -80,23 +80,12 @@ implementation {
 
   event void AMControl.startDone(error_t err) {
   	uint8_t i;
-  	message_t* message;
-  	radio_route_msg_t* packet;
   
-	if (err == SUCCESS){
+	  if (err == SUCCESS){
       dbg("Radio","Radio on.\n");
       if (TOS_NODE_ID == 1){
-        for(i = 2; i <= 9; i++){
-          message = (message_t*) malloc(sizeof(message_t));
-          packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-          
-          packet->id = TOS_NODE_ID;
-          packet->message_type = 0;
-          packet->topic = 0;
-          packet->payload = call Random.rand32() % 101;
-          
-          generate_send(i, message);
-        }
+        for(i = 2; i <= 9; i++)
+          generate_send(i, 0, TOS_NODE_ID, 2, 3);
       }
     } else {
       dbgerror("Radio", "Radio failed to start, retrying...\n");
@@ -113,12 +102,8 @@ implementation {
   
   event void Timer1.fired() {
   }
-  
-  event void Timer2.fired() {
-  }
 
-  event message_t* Receive.receive(message_t* bufPtr, 
-				   void* payload, uint8_t len) {
+  event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
 	/*
 	* Parse the receive packet.
 	* Implement all the functionalities
@@ -127,8 +112,8 @@ implementation {
 	*/
 	  radio_route_msg_t* message = (radio_route_msg_t*) payload;
 	
-	  dbg("Radio_recv","Received a message with the following content:\n");
-	  dbg_clear("Data", "\tPacket type: %d\n", message->message_type);
+    dbg("Radio_recv","Received a message with the following content:\n");
+    dbg_clear("Data", "\tPacket type: %d\n", message->message_type);
     dbg_clear("Data", "\tPacket id: %d\n", message->id);
     dbg_clear("Data", "\tPacket topic: %d\n", message->topic);
     dbg_clear("Data", "\tPacket payload: %d\n", message->payload);
@@ -140,13 +125,15 @@ implementation {
 	/* This event is triggered when a message is sent 
 	*  Check if the packet is sent 
 	*/ 
-      atomic{
-        if (bufPtr == packetsPool[tail])
-    	    tail = (tail + 1) % PACKET_POOL_SIZE;
-    	
-    	  if (head != tail)
-      	  post radioSendTask();
+    atomic{
+      if (bufPtr == packetsPool[tail]){
+        free(packetsPool[tail]);
+        tail = (tail + 1) % PACKET_POOL_SIZE;
       }
+    	
+    	if (head != tail)
+      	post radioSendTask();
+    }
   }
 }
 
