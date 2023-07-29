@@ -26,7 +26,7 @@ implementation {
   // Constants
   
   enum{
-  	PACKET_POOL_SIZE = 20
+  	PACKET_POOL_SIZE = 10
   };
   
   
@@ -40,7 +40,6 @@ implementation {
   
   // Functions prototypes
   
-  bool poolEmpty ();
   void generate_send (uint16_t address, message_t* packet);
   
   
@@ -51,15 +50,11 @@ implementation {
   
   // Functions
   
-  bool poolEmpty (){
-  	return (head == tail);
-  }
-  
   void generate_send (uint16_t address, message_t* packet){
   	atomic{
   	  packetsPool[head] = packet;
   	  addressesPool[head] = address;
- 	  head = (head + 1) % PACKET_POOL_SIZE;
+ 	    head = (head + 1) % PACKET_POOL_SIZE;
   	}
   	
   	post radioSendTask(); 
@@ -70,9 +65,9 @@ implementation {
   
   task void radioSendTask(){
   	if (call AMSend.send(addressesPool[tail], packetsPool[tail], sizeof(radio_route_msg_t)) == SUCCESS)
-	  dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
-	else
-	  post radioSendTask();
+	    dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
+	  else
+	    post radioSendTask();
   }
   
   
@@ -130,10 +125,10 @@ implementation {
 	* Perform the packet send using the generate_send function if needed
 	* Implement the LED logic and print LED status on Debug
 	*/
-	radio_route_msg_t* message = (radio_route_msg_t*) payload;
+	  radio_route_msg_t* message = (radio_route_msg_t*) payload;
 	
-	dbg("Radio_recv","Received a message with the following content:\n");
-	dbg_clear("Data", "\tPacket type: %d\n", message->message_type);
+	  dbg("Radio_recv","Received a message with the following content:\n");
+	  dbg_clear("Data", "\tPacket type: %d\n", message->message_type);
     dbg_clear("Data", "\tPacket id: %d\n", message->id);
     dbg_clear("Data", "\tPacket topic: %d\n", message->topic);
     dbg_clear("Data", "\tPacket payload: %d\n", message->payload);
@@ -147,9 +142,9 @@ implementation {
 	*/ 
       atomic{
         if (bufPtr == packetsPool[tail])
-    	  tail = (tail + 1) % PACKET_POOL_SIZE;
+    	    tail = (tail + 1) % PACKET_POOL_SIZE;
     	
-    	if (head != tail)
+    	  if (head != tail)
       	  post radioSendTask();
       }
   }
