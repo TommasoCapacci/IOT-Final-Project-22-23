@@ -1,0 +1,66 @@
+DEBUG (1): Application booted.
+DEBUG (9): Application booted.
+DEBUG (3): Application booted.
+DEBUG (7): Application booted.
+DEBUG (6): Application booted.
+DEBUG (2): Application booted.
+DEBUG (5): Application booted.
+DEBUG (4): Application booted.
+DEBUG (8): Application booted.
+DEBUG (3): Radio on.
+DEBUG (1): Radio on.
+DEBUG (9): Radio on.
+DEBUG (8): Radio on.
+DEBUG (4): Radio on.
+DEBUG (7): Radio on.
+DEBUG (5): Radio on.
+DEBUG (2): Radio on.
+DEBUG (6): Radio on.
+DEBUG (1): Sending packet to 2 at time 0:0:0.000000020:
+DEBUG (2): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 82
+DEBUG (1): Sending packet to 3 at time 0:0:0.009658787:
+DEBUG (3): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 29
+DEBUG (1): Sending packet to 4 at time 0:0:0.019821091:
+DEBUG (4): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 29
+DEBUG (1): Sending packet to 5 at time 0:0:0.030547967:
+DEBUG (5): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 82
+DEBUG (1): Sending packet to 6 at time 0:0:0.040664495:
+DEBUG (6): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 5
+DEBUG (1): Sending packet to 7 at time 0:0:0.042266669:
+DEBUG (7): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 30
+DEBUG (1): Sending packet to 8 at time 0:0:0.046859547:
+DEBUG (8): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 43
+DEBUG (1): Sending packet to 9 at time 0:0:0.050552163:
+DEBUG (9): Received a message with the following content:
+	Packet type: 0
+	Packet id: 1
+	Packet topic: 0
+	Packet payload: 90

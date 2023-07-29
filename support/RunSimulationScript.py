@@ -29,7 +29,7 @@ print("Saving simulation's output to " + simulation_outfile)
 out = open(simulation_outfile, ("w"))
 
 # DEBUG CHANELS
-channels = ["Boot", "Timer", "Radio", "Radio_send", "Radio_rec", "Data"]
+channels = ["Boot", "Timer", "Radio", "Radio_send", "Radio_recv", "Data"]
 for c in channels:
 	print("Activate debug message on channel " + c)
 	t.addChannel(c, out) 
