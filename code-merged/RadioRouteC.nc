@@ -32,6 +32,9 @@ implementation {
   uint16_t requestAddress = 0;
   message_t* request;
   
+  // Data structures for connections and subscriptions
+  Node* connections = NULL;
+  Node* subscriptions[3] = {NULL, NULL, NULL};
   
   // Functions prototypes
   
@@ -44,11 +47,11 @@ implementation {
   Node* addNode(Node* list, uint8_t node_id);
   void printList(Node* list);
 
-  void handleCONNECT(message_t* message);
-  void handleCONNACK(message_t* message);
-  void handleSUB(message_t* message);
-  void handleSUBACK(message_t* message);
-  void handlePUBLISH(message_t* message);
+  void handleCONNECT(radio_route_msg_t* payload);
+  void handleCONNACK(radio_route_msg_t* payload);
+  void handleSUB(radio_route_msg_t* payload);
+  void handleSUBACK(radio_route_msg_t* payload);
+  void handlePUBLISH(radio_route_msg_t* payload);
   
   // Tasks prototypes
   
@@ -88,20 +91,114 @@ implementation {
     call Timer0.startOneShot(ACK_TIMEOUT);
   }
 
-  void handleCONNECT(message_t* message){
-    packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
-    connections = addNode(connections, packet->id);
+  void handleCONNECT(radio_route_msg_t* payload){
+    connections = addNode(connections, payload->id);
     dbg("Data", "Printing list of active connections:\n");
     printList(connections);
-    packet->message_type = CONNACK;
-    generate_send(packet->id, message);
+    generate_send(payload->id, CONNACK, payload->id, 0, 0, false);  //false because PANC doesn't need to handle connect retransmission
   } 
 
+  void handleCONNACK(radio_route_msg_t* payload){
+    if (request != NULL){
+      call Timer0.stop();
+      free(request);
+      request = NULL;
 
+      // generate and send random subscription request
+      if(TOS_NODE_ID >= 2 && TOS_NODE_ID <= 4)
+        payload->topic = 0;
+      else if(TOS_NODE_ID >= 5 && TOS_NODE_ID <= 7)
+        payload->topic = 1;
+      else
+        payload->topic = 2;
 
+      generate_send(1, SUB, TOS_NODE_ID, payload->topic, 0, true); // true because sub must be acknowledged
+      // generate publish request
+      call Timer1.startPeriodic(PUB_INTERVAL);
+    }
+  }
 
+  void handleSUB(radio_route_msg_t* payload){
+    if (searchID(connections, payload->id)){ //check that sender is properly connected
+      subscriptions[payload->topic] = addNode(subscriptions[payload->topic], payload->id);
+      dbg("Data", "Printing list of subscriptions on topic %d:\n", payload->topic);
+      printList(subscriptions[payload->topic]);
+      generate_send(payload->id, SUBACK, payload->id, payload->topic, 0, false); // false because PANC doesn't need to handle sub retransmission
+    }
+  }
 
+  void handleSUBACK(radio_route_msg_t* payload){
+    if (request != NULL){
+      call Timer0.stop();
+      free(request);
+      request = NULL;
+    }
+  }
 
+  void handlePUBLISH(radio_route_msg_t* payload){
+    Node* temp = NULL;
+    if (TOS_NODE_ID == 1){ //PANC branch
+      temp = subscriptions[payload->topic];
+      while (temp != NULL){
+        if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
+          generate_send(temp->id, PUBLISH, payload->id, payload->topic, payload->payload, false); // false because PANC doesn't need to handle pub retransmission
+          temp = temp->next;
+        }
+      } 
+    } else {           // Mote branch
+      printPacketDebug(payload);
+    }
+  } 
+
+  void printPacketDebug(radio_route_msg_t* payload){
+  /*
+  * Print packet's content in a structured way
+  */
+    dbg_clear("Data", "\tPacket type: %d\n", payload->message_type);
+    dbg_clear("Data", "\tPacket id: %d\n", payload->id);
+    dbg_clear("Data", "\tPacket topic: %d\n", payload->topic);
+    dbg_clear("Data", "\tPacket payload: %d\n", payload->payload);
+  }
+
+  bool searchID(Node* list, uint8_t node_id){
+  /*
+  * Search a node inside the specified list
+  */
+    Node* current = list;
+
+    while (current != NULL){
+      if (current->id == node_id)
+        return TRUE;
+      current = current->next;
+    }
+    return FALSE;
+  }
+
+  Node* addNode(Node* list, uint8_t node_id){
+  /*
+  * Add a node to the head of the specified list
+  */
+    Node* newNode = (Node*)malloc(sizeof(Node));
+
+    if(searchID(list, node_id))
+      return list;
+    newNode->id = node_id;
+    newNode->next = list;
+    return newNode;
+  }
+
+  void printList(Node* list){
+  /*
+  * Print all the nodes inside the specified list
+  */
+    Node* current = list;
+
+    while (current != NULL){
+      dbg_clear("Data", "\tNode id: %d\n", current->id);
+      current = current->next;
+    }
+  }
+  
   // Tasks
   
   task void radioSendTask(){
