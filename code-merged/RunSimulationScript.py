@@ -87,7 +87,7 @@ for i in range(1, num_nodes + 1):
 # START SIMULATION
 print("Start simulation with TOSSIM! \n\n\n")
 
-num_events = 10000
+num_events = 10000000
 for i in range(0, num_events):
 	t.runNextEvent()
 

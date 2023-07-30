@@ -22,12 +22,14 @@ module RadioRouteC @safe() {
 implementation {
   
   
-  // Variables
+  /****** VARIABLES *****/
   
+  // Packets queue
   message_t* packetsPool[PACKET_POOL_SIZE];
   uint16_t addressesPool[PACKET_POOL_SIZE];
   uint8_t head = 0;
   uint8_t tail = 0;
+  
   // Variables for retransmission
   uint16_t requestAddress = 0;
   message_t* request;
@@ -39,7 +41,8 @@ implementation {
   // Additional variables
   uint16_t counter = 0;
   
-  // Functions prototypes
+  
+  /****** FUNCTION PROTOTYPES *****/
   
   void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload, bool retFlag);
   void handleRetransmission(uint16_t address, message_t* message);
@@ -75,11 +78,12 @@ implementation {
   	atomic{
   	  packetsPool[head] = message;
   	  addressesPool[head] = address;
- 	    head = (head + 1) % PACKET_POOL_SIZE;
+ 	  head = (head + 1) % PACKET_POOL_SIZE;
   	}
   	
     if(retFlag)
       handleRetransmission(address,message);
+      
   	post radioSendTask();
 
   } 
@@ -93,66 +97,7 @@ implementation {
     requestAddress = address;
     call Timer0.startOneShot(ACK_TIMEOUT);
   }
-
-  void handleCONNECT(radio_route_msg_t* payload){
-    connections = addNode(connections, payload->id);
-    dbg("Data", "Printing list of active connections:\n");
-    printList(connections);
-    generate_send(payload->id, CONNACK, payload->id, 0, 0, false);  //false because PANC doesn't need to handle connect retransmission
-  } 
-
-  void handleCONNACK(radio_route_msg_t* payload){
-    if (request != NULL){
-      call Timer0.stop();
-      free(request);
-      request = NULL;
-
-      // generate and send random subscription request
-      if(TOS_NODE_ID >= 2 && TOS_NODE_ID <= 4)
-        payload->topic = 0;
-      else if(TOS_NODE_ID >= 5 && TOS_NODE_ID <= 7)
-        payload->topic = 1;
-      else
-        payload->topic = 2;
-
-      generate_send(1, SUB, TOS_NODE_ID, payload->topic, 0, true); // true because sub must be acknowledged
-      // generate publish request
-      call Timer1.startPeriodic(PUB_INTERVAL);
-    }
-  }
-
-  void handleSUB(radio_route_msg_t* payload){
-    if (searchID(connections, payload->id)){ //check that sender is properly connected
-      subscriptions[payload->topic] = addNode(subscriptions[payload->topic], payload->id);
-      dbg("Data", "Printing list of subscriptions on topic %d:\n", payload->topic);
-      printList(subscriptions[payload->topic]);
-      generate_send(payload->id, SUBACK, payload->id, payload->topic, 0, false); // false because PANC doesn't need to handle sub retransmission
-    }
-  }
-
-  void handleSUBACK(radio_route_msg_t* payload){
-    if (request != NULL){
-      call Timer0.stop();
-      free(request);
-      request = NULL;
-    }
-  }
-
-  void handlePUBLISH(radio_route_msg_t* payload){
-    Node* temp = NULL;
-    if (TOS_NODE_ID == 1){ //PANC branch
-      temp = subscriptions[payload->topic];
-      while (temp != NULL){
-        if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
-          generate_send(temp->id, PUBLISH, payload->id, payload->topic, payload->payload, false); // false because PANC doesn't need to handle pub retransmission
-          temp = temp->next;
-        }
-      } 
-    } else {           // Mote branch
-      printPacketDebug(payload);
-    }
-  } 
-
+  
   void printPacketDebug(radio_route_msg_t* payload){
   /*
   * Print packet's content in a structured way
@@ -185,6 +130,7 @@ implementation {
 
     if(searchID(list, node_id))
       return list;
+      
     newNode->id = node_id;
     newNode->next = list;
     return newNode;
@@ -202,13 +148,75 @@ implementation {
     }
   }
 
+  void handleCONNECT(radio_route_msg_t* payload){
+    connections = addNode(connections, payload->id);
+    dbg("Data", "Printing list of active connections:\n");
+    printList(connections);
+    
+    generate_send(payload->id, CONNACK, payload->id, 0, 0, 0);  //false because PANC doesn't need to handle connect retransmission
+  } 
+
+  void handleCONNACK(radio_route_msg_t* payload){
+    if (request != NULL){
+      call Timer0.stop();
+      free(request);
+      request = NULL;
+
+      // generate and send subscription request
+      if(TOS_NODE_ID >= 2 && TOS_NODE_ID <= 4)
+        payload->topic = 0;
+      else if(TOS_NODE_ID >= 5 && TOS_NODE_ID <= 7)
+        payload->topic = 1;
+      else
+        payload->topic = 2;
+        
+      generate_send(1, SUB, TOS_NODE_ID, payload->topic, 0, 1); // true because sub must be acknowledged
+    }
+  }
+
+  void handleSUB(radio_route_msg_t* payload){
+    if (searchID(connections, payload->id)){ //check that sender is properly connected
+      subscriptions[payload->topic] = addNode(subscriptions[payload->topic], payload->id);
+      dbg("Data", "Printing list of subscriptions on topic %d:\n", payload->topic);
+      printList(subscriptions[payload->topic]);
+      
+      generate_send(payload->id, SUBACK, payload->id, payload->topic, 0, 0); // false because PANC doesn't need to handle sub retransmission
+    }
+  }
+
+  void handleSUBACK(radio_route_msg_t* payload){
+    if (request != NULL){
+      call Timer0.stop();
+      free(request);
+      request = NULL;
+      
+      // generate publish request
+      call Timer1.startPeriodic(PUB_INTERVAL);
+    }
+  }
+
+  void handlePUBLISH(radio_route_msg_t* payload){
+    Node* temp = NULL;
+    
+    if (TOS_NODE_ID == 1){ 		//PANC branch
+      temp = subscriptions[payload->topic];
+      while (temp != NULL){
+        if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
+          generate_send(temp->id, PUBLISH, payload->id, payload->topic, payload->payload, 0); // false because PANC doesn't need to handle pub retransmission
+          temp = temp->next;
+        }
+      } 
+    }
+  } 
+
+
   // Tasks
   
   task void radioSendTask(){
   	if (call AMSend.send(addressesPool[tail], packetsPool[tail], sizeof(radio_route_msg_t)) == SUCCESS)
 	    dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
-	  else
-	    post radioSendTask();
+    else
+	  post radioSendTask();
   }
   
   
@@ -222,10 +230,9 @@ implementation {
   event void AMControl.startDone(error_t err) {
   	if (err == SUCCESS){
       dbg("Radio","Radio on on node %d!\n", TOS_NODE_ID);
-      if (TOS_NODE_ID != 1){
+      if (TOS_NODE_ID != 1)
         // send connect message to PAN coordinator
-        generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, true); // true because connect must be acknowledged
-      }
+        generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, 1); // true because connect must be acknowledged
     } else {
       dbgerror("Radio", "Radio failed to start, retrying...\n");
       call AMControl.start();
@@ -233,7 +240,6 @@ implementation {
   }
 
   event void AMControl.stopDone(error_t err) {
-    /* Fill it ... */
     dbg("Radio", "Radio stopped!\n");
   }
   
@@ -241,10 +247,10 @@ implementation {
   /*
   * Use this timer to trigger retransmissions
   */
-    radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+    radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
+    
   	dbgerror("Timer", "Request was not acknowledged in time. Resending.\n");
-
-    generate_send(requestAddress, packet->message_type, packet->id, packet->topic, packet->payload, true); // true because request must be acknowledged
+    generate_send(requestAddress, packet->message_type, packet->id, packet->topic, packet->payload, 1); // true because request must be acknowledged
   }
   
   event void Timer1.fired() {
@@ -252,6 +258,7 @@ implementation {
   * Use this timer to trigger pubblications
   */
     uint16_t topic;
+    
     counter++;
     if(TOS_NODE_ID >= 2 && TOS_NODE_ID <= 4)
         topic = 1;
@@ -259,8 +266,9 @@ implementation {
         topic = 2;
       else
         topic = 0;
+        
     dbg("Timer", "Publishing a message on topic %d. \n", topic);
-    generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter, false); // false because pubblication doesn't need to be acknowledged
+    generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter, 0); // false because pubblication doesn't need to be acknowledged
   }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
@@ -272,28 +280,28 @@ implementation {
 	*/
 	  radio_route_msg_t* packet = (radio_route_msg_t*) payload;
 	
-    dbg("Radio_rec", "Received packet at time %s:\n", sim_time_string());
-    printPacketDebug(packet);
+      dbg("Radio_recv", "Received packet at time %s:\n", sim_time_string());
+      printPacketDebug(packet);
     
-    switch (packet->message_type){
-      case CONNECT:
-        handleCONNECT(bufPtr);
-      break;
-      case CONNACK:
-        handleCONNACK(bufPtr);
-      break;
-      case SUB:
-        handleSUB(bufPtr);
-      break;
-      case SUBACK:
-        handleSUBACK(bufPtr);
-      break;
-      case PUBLISH:
-        handlePUBLISH(bufPtr);
-      break;
-    }
+      switch (packet->message_type){
+        case CONNECT:
+          handleCONNECT(packet);
+        break;
+        case CONNACK:
+          handleCONNACK(packet);
+        break;
+        case SUB:
+          handleSUB(packet);
+        break;
+        case SUBACK:
+          handleSUBACK(packet);
+        break;
+        case PUBLISH:
+          handlePUBLISH(packet);
+        break;
+      }
 
-    return bufPtr;
+      return bufPtr;
   }
 
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
