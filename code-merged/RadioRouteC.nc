@@ -35,6 +35,9 @@ implementation {
   // Data structures for connections and subscriptions
   Node* connections = NULL;
   Node* subscriptions[3] = {NULL, NULL, NULL};
+
+  // Additional variables
+  uint16_t counter = 0;
   
   // Functions prototypes
   
@@ -198,7 +201,7 @@ implementation {
       current = current->next;
     }
   }
-  
+
   // Tasks
   
   task void radioSendTask(){
@@ -217,13 +220,11 @@ implementation {
   }
 
   event void AMControl.startDone(error_t err) {
-  	uint8_t i;
-  
-	  if (err == SUCCESS){
-      dbg("Radio","Radio on.\n");
-      if (TOS_NODE_ID == 1){
-        for(i = 2; i <= 9; i++)
-          generate_send(i, 0, TOS_NODE_ID, 2, 3);
+  	if (err == SUCCESS){
+      dbg("Radio","Radio on on node %d!\n", TOS_NODE_ID);
+      if (TOS_NODE_ID != 1){
+        // send connect message to PAN coordinator
+        generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, true); // true because connect must be acknowledged
       }
     } else {
       dbgerror("Radio", "Radio failed to start, retrying...\n");
@@ -233,12 +234,33 @@ implementation {
 
   event void AMControl.stopDone(error_t err) {
     /* Fill it ... */
+    dbg("Radio", "Radio stopped!\n");
   }
   
   event void Timer0.fired() {
+  /*
+  * Use this timer to trigger retransmissions
+  */
+    radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
+  	dbgerror("Timer", "Request was not acknowledged in time. Resending.\n");
+
+    generate_send(requestAddress, packet->message_type, packet->id, packet->topic, packet->payload, true); // true because request must be acknowledged
   }
   
   event void Timer1.fired() {
+  /*
+  * Use this timer to trigger pubblications
+  */
+    uint16_t topic;
+    counter++;
+    if(TOS_NODE_ID >= 2 && TOS_NODE_ID <= 4)
+        topic = 1;
+      else if(TOS_NODE_ID >= 5 && TOS_NODE_ID <= 7)
+        topic = 2;
+      else
+        topic = 0;
+    dbg("Timer", "Publishing a message on topic %d. \n", topic);
+    generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter, false); // false because pubblication doesn't need to be acknowledged
   }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
@@ -248,14 +270,29 @@ implementation {
 	* Perform the packet send using the generate_send function if needed
 	* Implement the LED logic and print LED status on Debug
 	*/
-	  radio_route_msg_t* message = (radio_route_msg_t*) payload;
+	  radio_route_msg_t* packet = (radio_route_msg_t*) payload;
 	
-    dbg("Radio_recv","Received a message with the following content:\n");
-    dbg_clear("Data", "\tPacket type: %d\n", message->message_type);
-    dbg_clear("Data", "\tPacket id: %d\n", message->id);
-    dbg_clear("Data", "\tPacket topic: %d\n", message->topic);
-    dbg_clear("Data", "\tPacket payload: %d\n", message->payload);
+    dbg("Radio_rec", "Received packet at time %s:\n", sim_time_string());
+    printPacketDebug(packet);
     
+    switch (packet->message_type){
+      case CONNECT:
+        handleCONNECT(bufPtr);
+      break;
+      case CONNACK:
+        handleCONNACK(bufPtr);
+      break;
+      case SUB:
+        handleSUB(bufPtr);
+      break;
+      case SUBACK:
+        handleSUBACK(bufPtr);
+      break;
+      case PUBLISH:
+        handlePUBLISH(bufPtr);
+      break;
+    }
+
     return bufPtr;
   }
 
