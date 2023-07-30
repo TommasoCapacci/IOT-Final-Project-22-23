@@ -6,10 +6,9 @@
 module RadioRouteC @safe() {
   uses {
   
-  
     /****** INTERFACES *****/
     
-	interface Boot;
+	  interface Boot;
     interface Receive;
     interface AMSend;
     interface SplitControl as AMControl;
@@ -59,15 +58,19 @@ implementation {
   void handleSUBACK(radio_route_msg_t* payload);
   void handlePUBLISH(radio_route_msg_t* payload);
   
-  // Tasks prototypes
+
+  /****** TASK PROTOTYPES *****/
   
   task void radioSendTask();
   
   
-  // Functions
+  /****** FUNCTIONS *****/
   
   void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload, bool retFlag){
-  	message_t* message = (message_t*) malloc(sizeof(message_t));
+  /*
+  * Allocate a new message, populate it with the specified parameters and add it to the packets queue's head
+  */
+    message_t* message = (message_t*) malloc(sizeof(message_t));
     radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(message, sizeof(radio_route_msg_t));
   
     packet->message_type = message_type;
@@ -190,7 +193,7 @@ implementation {
       free(request);
       request = NULL;
       
-      // generate publish request
+      // generate publish request: we assumed that each mote has to be subscribed to a topic before starting to publish
       call Timer1.startPeriodic(PUB_INTERVAL);
     }
   }
@@ -198,7 +201,7 @@ implementation {
   void handlePUBLISH(radio_route_msg_t* payload){
     Node* temp = NULL;
     
-    if (TOS_NODE_ID == 1){ 		//PANC branch
+    if (TOS_NODE_ID == 1){  //if PANC, forward the message to all the RIGHT subscribers
       temp = subscriptions[payload->topic];
       while (temp != NULL){
         if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
@@ -210,17 +213,20 @@ implementation {
   } 
 
 
-  // Tasks
+  /****** TASKS *****/
   
   task void radioSendTask(){
+  /*
+  * Send a single packet in the queue taking it from the tail
+  */
   	if (call AMSend.send(addressesPool[tail], packetsPool[tail], sizeof(radio_route_msg_t)) == SUCCESS)
 	    dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
     else
-	  post radioSendTask();
+	    post radioSendTask();
   }
   
   
-  // Events
+  /****** EVENT HANDLERS *****/
   
   event void Boot.booted() {
     dbg("Boot","Application booted.\n");
@@ -230,8 +236,7 @@ implementation {
   event void AMControl.startDone(error_t err) {
   	if (err == SUCCESS){
       dbg("Radio","Radio on on node %d!\n", TOS_NODE_ID);
-      if (TOS_NODE_ID != 1)
-        // send connect message to PAN coordinator
+      if (TOS_NODE_ID != 1) // if not PANC, send connect message to PANC
         generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, 1); // true because connect must be acknowledged
     } else {
       dbgerror("Radio", "Radio failed to start, retrying...\n");
@@ -245,7 +250,7 @@ implementation {
   
   event void Timer0.fired() {
   /*
-  * Use this timer to trigger retransmissions
+  * Timer used to trigger retransmissions
   */
     radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
     
@@ -255,7 +260,7 @@ implementation {
   
   event void Timer1.fired() {
   /*
-  * Use this timer to trigger pubblications
+  * Timer used to trigger pubblications
   */
     uint16_t topic;
     
@@ -272,12 +277,6 @@ implementation {
   }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
-	/*
-	* Parse the receive packet.
-	* Implement all the functionalities
-	* Perform the packet send using the generate_send function if needed
-	* Implement the LED logic and print LED status on Debug
-	*/
 	  radio_route_msg_t* packet = (radio_route_msg_t*) payload;
 	
       dbg("Radio_recv", "Received packet at time %s:\n", sim_time_string());
@@ -305,8 +304,8 @@ implementation {
   }
 
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
-	/* This event is triggered when a message is sent 
-	*  Check if the packet is sent 
+	/* 
+	*  Check if the RIGHT packet has been sent
 	*/ 
     atomic{
       if (bufPtr == packetsPool[tail]){
@@ -319,7 +318,3 @@ implementation {
     }
   }
 }
-
-
-
-
