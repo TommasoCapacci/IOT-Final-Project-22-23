@@ -201,7 +201,11 @@ implementation {
   void handlePUBLISH(radio_route_msg_t* payload){
     Node* temp = NULL;
     
-    if (TOS_NODE_ID == 1){  //if PANC, forward the message to all the RIGHT subscribers
+    if (TOS_NODE_ID == 1){  //if PANC...
+      // print packet's content
+      dbg_clear("Data_console", "{\"Topic\":%d, \"Payload\":%d}\n", payload->topic, payload->payload);
+    
+	  // forward the message to all the RIGHT subscribers
       temp = subscriptions[payload->topic];
       while (temp != NULL){
         if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher

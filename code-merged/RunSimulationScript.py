@@ -31,8 +31,10 @@ out = open(simulation_outfile, ("w"))
 # DEBUG CHANELS
 channels = ["Boot", "Timer", "Radio", "Radio_send", "Radio_recv", "Data"]
 for c in channels:
-	print("Activate debug message on channel " + c)
+	print("Activate debug message on channel \"" + c + "\"")
 	t.addChannel(c, out) 
+print("Activate debug message on channel \"Data_console\" to be printed at console")
+t.addChannel("Data_console", sys.stdout) 
 
 
 # NODES CREATION
