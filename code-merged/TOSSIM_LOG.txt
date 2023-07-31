@@ -24,872 +24,1036 @@ DEBUG (2): Sending packet to 1 at time 0:0:0.000000030:
 DEBUG (4): Sending packet to 1 at time 0:0:0.000000030:
 DEBUG (3): Sending packet to 1 at time 0:0:0.000000030:
 DEBUG (5): Sending packet to 1 at time 0:0:0.000000030:
-DEBUG (1): Received packet at time 0:0:0.002227800:
+DEBUG (1): Received packet at time 0:0:0.001434347:
 	Packet type: 0
-	Packet id: 2
+	Packet id: 6
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of active connections:
-	Node id: 2
-DEBUG (1): Sending packet to 2 at time 0:0:0.002227810:
-DEBUG (1): Received packet at time 0:0:0.003906257:
-	Packet type: 0
-	Packet id: 7
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Printing list of active connections:
-	Node id: 7
-	Node id: 2
-DEBUG (2): Received packet at time 0:0:0.008102409:
+	Node id: 6
+DEBUG (1): Sending packet to 6 at time 0:0:0.001434357:
+DEBUG (6): Received packet at time 0:0:0.004272476:
 	Packet type: 1
-	Packet id: 2
+	Packet id: 6
 	Packet topic: 0
 	Packet payload: 0
-DEBUG (2): Sending packet to 1 at time 0:0:0.008102429:
-DEBUG (1): Sending packet to 7 at time 0:0:0.008270257:
-DEBUG (1): Received packet at time 0:0:0.010391204:
+DEBUG (6): Sending packet to 1 at time 0:0:0.004272496:
+DEBUG (1): Received packet at time 0:0:0.006072992:
 	Packet type: 0
 	Packet id: 3
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of active connections:
 	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (7): Received packet at time 0:0:0.014450030:
-	Packet type: 1
-	Packet id: 7
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (7): Sending packet to 1 at time 0:0:0.014450050:
-DEBUG (1): Sending packet to 3 at time 0:0:0.014617884:
-DEBUG (1): Received packet at time 0:0:0.016998251:
-	Packet type: 2
-	Packet id: 2
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Printing list of subscriptions on topic 0:
-	Node id: 2
-DEBUG (3): Received packet at time 0:0:0.020553519:
+	Node id: 6
+DEBUG (1): Sending packet to 3 at time 0:0:0.006073002:
+DEBUG (3): Received packet at time 0:0:0.014190631:
 	Packet type: 1
 	Packet id: 3
 	Packet topic: 0
 	Packet payload: 0
-DEBUG (3): Sending packet to 1 at time 0:0:0.020553539:
-DEBUG (1): Sending packet to 2 at time 0:0:0.020721371:
-DEBUG (1): Received packet at time 0:0:0.022079409:
+DEBUG (3): Sending packet to 1 at time 0:0:0.014190651:
+DEBUG (1): Received packet at time 0:0:0.018051102:
 	Packet type: 2
 	Packet id: 3
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of subscriptions on topic 0:
 	Node id: 3
-	Node id: 2
-DEBUG (1): Received packet at time 0:0:0.023422166:
-	Packet type: 2
-	Packet id: 7
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (1): Printing list of subscriptions on topic 1:
-	Node id: 7
-DEBUG (2): Received packet at time 0:0:0.027435199:
-	Packet type: 3
-	Packet id: 2
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Sending packet to 3 at time 0:0:0.027603049:
-DEBUG (3): Received packet at time 0:0:0.034881448:
+DEBUG (1): Sending packet to 3 at time 0:0:0.018051112:
+DEBUG (3): Received packet at time 0:0:0.020385693:
 	Packet type: 3
 	Packet id: 3
 	Packet topic: 0
 	Packet payload: 0
-DEBUG (1): Sending packet to 7 at time 0:0:0.035049304:
-DEBUG (7): Received packet at time 0:0:0.045074270:
-	Packet type: 3
-	Packet id: 7
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:0.222656270:
-DEBUG (1): Received packet at time 0:0:0.225753786:
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:0.214843770:
+DEBUG (1): Received packet at time 0:0:0.222137428:
 	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 1
-DEBUG (1): Sending packet to 7 at time 0:0:0.225753796:
-DEBUG (7): Received packet at time 0:0:0.229385366:
-	Packet type: 4
-	Packet id: 2
+	Packet id: 3
 	Packet topic: 1
 	Packet payload: 1
 DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:0.229492207:
-DEBUG (1): Received packet at time 0:0:0.235244737:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 1
-DEBUG (1): Sending packet to 7 at time 0:0:0.235244747:
-DEBUG (7): Received packet at time 0:0:0.240142790:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 1
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:0.240234395:
-DEBUG (1): Received packet at time 0:0:0.246841412:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 1
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:0.417968770:
-DEBUG (1): Received packet at time 0:0:0.419815072:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 2
-DEBUG (1): Sending packet to 7 at time 0:0:0.419815082:
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:0.424804707:
-DEBUG (7): Received packet at time 0:0:0.425430284:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 2
-DEBUG (1): Received packet at time 0:0:0.429595939:
+DEBUG (3): Sending packet to 1 at time 0:0:0.410156270:
+DEBUG (1): Received packet at time 0:0:0.416290267:
 	Packet type: 4
 	Packet id: 3
 	Packet topic: 1
 	Packet payload: 2
-DEBUG (1): Sending packet to 7 at time 0:0:0.429595949:
-DEBUG (7): Received packet at time 0:0:0.432815535:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 2
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:0.435546895:
-DEBUG (1): Received packet at time 0:0:0.442703225:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 2
-ERROR (6): Request was not acknowledged in time. Resending.
-ERROR (5): Request was not acknowledged in time. Resending.
 ERROR (8): Request was not acknowledged in time. Resending.
-ERROR (9): Request was not acknowledged in time. Resending.
+ERROR (7): Request was not acknowledged in time. Resending.
+ERROR (5): Request was not acknowledged in time. Resending.
 ERROR (4): Request was not acknowledged in time. Resending.
-DEBUG (6): Sending packet to 1 at time 0:0:0.488281280:
+ERROR (9): Request was not acknowledged in time. Resending.
+ERROR (2): Request was not acknowledged in time. Resending.
+DEBUG (7): Sending packet to 1 at time 0:0:0.488281280:
 DEBUG (5): Sending packet to 1 at time 0:0:0.488281280:
 DEBUG (8): Sending packet to 1 at time 0:0:0.488281280:
-DEBUG (9): Sending packet to 1 at time 0:0:0.488281280:
 DEBUG (4): Sending packet to 1 at time 0:0:0.488281280:
-DEBUG (1): Received packet at time 0:0:0.489852926:
+DEBUG (2): Sending packet to 1 at time 0:0:0.488281280:
+DEBUG (9): Sending packet to 1 at time 0:0:0.488281280:
+DEBUG (1): Received packet at time 0:0:0.491958626:
+	Packet type: 0
+	Packet id: 5
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Printing list of active connections:
+	Node id: 5
+	Node id: 3
+	Node id: 6
+DEBUG (1): Sending packet to 5 at time 0:0:0.491958636:
+ERROR (6): Request was not acknowledged in time. Resending.
+DEBUG (6): Sending packet to 1 at time 0:0:0.492187530:
+DEBUG (1): Received packet at time 0:0:0.495391834:
 	Packet type: 0
 	Packet id: 8
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of active connections:
 	Node id: 8
+	Node id: 5
 	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (1): Sending packet to 8 at time 0:0:0.489852936:
-DEBUG (1): Received packet at time 0:0:0.492935183:
+	Node id: 6
+DEBUG (5): Received packet at time 0:0:0.497055042:
+	Packet type: 1
+	Packet id: 5
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (5): Sending packet to 1 at time 0:0:0.497055062:
+DEBUG (1): Sending packet to 8 at time 0:0:0.497222894:
+DEBUG (1): Received packet at time 0:0:0.498596161:
 	Packet type: 0
-	Packet id: 4
+	Packet id: 9
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of active connections:
-	Node id: 4
+	Node id: 9
 	Node id: 8
+	Node id: 5
 	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (8): Received packet at time 0:0:0.496475211:
+	Node id: 6
+DEBUG (1): Received packet at time 0:0:0.500473011:
+	Packet type: 2
+	Packet id: 5
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (1): Printing list of subscriptions on topic 1:
+	Node id: 5
+DEBUG (1): Received packet at time 0:0:0.501556371:
+	Packet type: 2
+	Packet id: 6
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (1): Printing list of subscriptions on topic 1:
+	Node id: 6
+	Node id: 5
+DEBUG (8): Received packet at time 0:0:0.503250080:
 	Packet type: 1
 	Packet id: 8
 	Packet topic: 0
 	Packet payload: 0
-DEBUG (8): Sending packet to 1 at time 0:0:0.496475231:
-DEBUG (1): Sending packet to 4 at time 0:0:0.496643063:
-DEBUG (4): Received packet at time 0:0:0.502548180:
+DEBUG (8): Sending packet to 1 at time 0:0:0.503250100:
+DEBUG (1): Sending packet to 9 at time 0:0:0.503417931:
+DEBUG (9): Received packet at time 0:0:0.510208052:
 	Packet type: 1
-	Packet id: 4
+	Packet id: 9
 	Packet topic: 0
 	Packet payload: 0
-DEBUG (4): Sending packet to 1 at time 0:0:0.502548200:
-DEBUG (1): Received packet at time 0:0:0.504486049:
+DEBUG (9): Sending packet to 1 at time 0:0:0.510208072:
+DEBUG (1): Sending packet to 5 at time 0:0:0.510375908:
+DEBUG (1): Received packet at time 0:0:0.511550833:
 	Packet type: 2
 	Packet id: 8
 	Packet topic: 2
 	Packet payload: 0
 DEBUG (1): Printing list of subscriptions on topic 2:
 	Node id: 8
-DEBUG (1): Sending packet to 8 at time 0:0:0.504486059:
-DEBUG (1): Received packet at time 0:0:0.508132884:
+DEBUG (5): Received packet at time 0:0:0.512954628:
+	Packet type: 3
+	Packet id: 5
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (1): Sending packet to 6 at time 0:0:0.513122483:
+DEBUG (6): Received packet at time 0:0:0.517074486:
+	Packet type: 3
+	Packet id: 6
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (1): Sending packet to 8 at time 0:0:0.517242342:
+DEBUG (8): Received packet at time 0:0:0.520461928:
+	Packet type: 3
+	Packet id: 8
+	Packet topic: 2
+	Packet payload: 0
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:0.605468770:
+DEBUG (1): Received packet at time 0:0:0.614578213:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (1): Sending packet to 6 at time 0:0:0.614578223:
+DEBUG (6): Received packet at time 0:0:0.624938881:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (1): Sending packet to 5 at time 0:0:0.625106736:
+DEBUG (5): Received packet at time 0:0:0.626876746:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:0.708007832:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:0.711914082:
+DEBUG (1): Received packet at time 0:0:0.713943466:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (1): Sending packet to 8 at time 0:0:0.713943476:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:0.714843770:
+DEBUG (1): Received packet at time 0:0:0.715927120:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (1): Received packet at time 0:0:0.717636112:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 1
+DEBUG (8): Received packet at time 0:0:0.724273616:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (1): Sending packet to 8 at time 0:0:0.724441470:
+DEBUG (8): Received packet at time 0:0:0.735229371:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (1): Sending packet to 3 at time 0:0:0.735397227:
+DEBUG (3): Received packet at time 0:0:0.740997170:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 1
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:0.800781270:
+DEBUG (1): Received packet at time 0:0:0.811233479:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 6 at time 0:0:0.811233489:
+DEBUG (6): Received packet at time 0:0:0.817123347:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 5 at time 0:0:0.817291203:
+DEBUG (5): Received packet at time 0:0:0.824478051:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:0.903320332:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:0.907226582:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:0.910156270:
+DEBUG (1): Received packet at time 0:0:0.912231436:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 2
+DEBUG (1): Sending packet to 8 at time 0:0:0.912231446:
+DEBUG (8): Received packet at time 0:0:0.922759949:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 2
+ERROR (7): Request was not acknowledged in time. Resending.
+ERROR (2): Request was not acknowledged in time. Resending.
+ERROR (4): Request was not acknowledged in time. Resending.
+DEBUG (7): Sending packet to 1 at time 0:0:0.976562530:
+DEBUG (2): Sending packet to 1 at time 0:0:0.976562530:
+DEBUG (4): Sending packet to 1 at time 0:0:0.976562530:
+DEBUG (1): Received packet at time 0:0:0.978073141:
+	Packet type: 0
+	Packet id: 2
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Printing list of active connections:
+	Node id: 2
+	Node id: 9
+	Node id: 8
+	Node id: 5
+	Node id: 3
+	Node id: 6
+DEBUG (1): Sending packet to 2 at time 0:0:0.978073151:
+DEBUG (1): Received packet at time 0:0:0.981811522:
+	Packet type: 0
+	Packet id: 7
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Printing list of active connections:
+	Node id: 7
+	Node id: 2
+	Node id: 9
+	Node id: 8
+	Node id: 5
+	Node id: 3
+	Node id: 6
+DEBUG (1): Received packet at time 0:0:0.986450167:
+	Packet type: 0
+	Packet id: 4
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Printing list of active connections:
+	Node id: 4
+	Node id: 7
+	Node id: 2
+	Node id: 9
+	Node id: 8
+	Node id: 5
+	Node id: 3
+	Node id: 6
+DEBUG (2): Received packet at time 0:0:0.987838719:
+	Packet type: 1
+	Packet id: 2
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (2): Sending packet to 1 at time 0:0:0.987838739:
+DEBUG (1): Sending packet to 7 at time 0:0:0.988006572:
+DEBUG (1): Received packet at time 0:0:0.996047919:
+	Packet type: 2
+	Packet id: 2
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Printing list of subscriptions on topic 0:
+	Node id: 2
+	Node id: 3
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:0.996093770:
+ERROR (9): Request was not acknowledged in time. Resending.
+DEBUG (9): Sending packet to 1 at time 0:0:0.998046905:
+DEBUG (7): Received packet at time 0:0:0.998138349:
+	Packet type: 1
+	Packet id: 7
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (7): Sending packet to 1 at time 0:0:0.998138369:
+DEBUG (1): Sending packet to 4 at time 0:0:0.998306199:
+DEBUG (4): Received packet at time 0:0:1.008209096:
+	Packet type: 1
+	Packet id: 4
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (4): Sending packet to 1 at time 0:0:1.008209116:
+DEBUG (1): Sending packet to 2 at time 0:0:1.008376951:
+DEBUG (1): Received packet at time 0:0:1.010192742:
+	Packet type: 2
+	Packet id: 7
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (1): Printing list of subscriptions on topic 1:
+	Node id: 7
+	Node id: 6
+	Node id: 5
+DEBUG (2): Received packet at time 0:0:1.012359472:
+	Packet type: 3
+	Packet id: 2
+	Packet topic: 0
+	Packet payload: 0
+DEBUG (1): Sending packet to 7 at time 0:0:1.012527322:
+DEBUG (7): Received packet at time 0:0:1.015975788:
+	Packet type: 3
+	Packet id: 7
+	Packet topic: 1
+	Packet payload: 0
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:1.098632832:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:1.102539082:
+DEBUG (1): Received packet at time 0:0:1.105316143:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Sending packet to 8 at time 0:0:1.105316153:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:1.105468770:
+DEBUG (1): Received packet at time 0:0:1.106658931:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Received packet at time 0:0:1.114288298:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 3
+DEBUG (8): Received packet at time 0:0:1.115310601:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Sending packet to 8 at time 0:0:1.115478451:
+DEBUG (8): Received packet at time 0:0:1.117538376:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Sending packet to 2 at time 0:0:1.117706231:
+DEBUG (2): Received packet at time 0:0:1.122314359:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 3
+DEBUG (1): Sending packet to 3 at time 0:0:1.122482214:
+DEBUG (3): Received packet at time 0:0:1.129272336:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 3
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:1.191406270:
+DEBUG (1): Received packet at time 0:0:1.201721151:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 6
+DEBUG (1): Sending packet to 7 at time 0:0:1.201721161:
+DEBUG (7): Received packet at time 0:0:1.205993597:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 6
+DEBUG (1): Sending packet to 6 at time 0:0:1.206161452:
+DEBUG (2): Publishing a message on topic 1. 
+DEBUG (2): Sending packet to 1 at time 0:0:1.207031270:
+DEBUG (1): Received packet at time 0:0:1.208328259:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 1
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:1.210937520:
+DEBUG (6): Received packet at time 0:0:1.215850727:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 6
+DEBUG (1): Sending packet to 5 at time 0:0:1.216018579:
+DEBUG (5): Received packet at time 0:0:1.219711184:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 6
+DEBUG (1): Sending packet to 7 at time 0:0:1.219879040:
+DEBUG (1): Received packet at time 0:0:1.220855675:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (7): Received packet at time 0:0:1.225265361:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 1
+DEBUG (1): Sending packet to 6 at time 0:0:1.225433215:
+DEBUG (6): Received packet at time 0:0:1.229537805:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 1
+DEBUG (1): Sending packet to 5 at time 0:0:1.229705661:
+DEBUG (5): Received packet at time 0:0:1.239166055:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 1
+DEBUG (1): Sending packet to 8 at time 0:0:1.239333910:
+DEBUG (8): Received packet at time 0:0:1.244323505:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 1
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:1.293945332:
+DEBUG (1): Received packet at time 0:0:1.296951296:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 4
+DEBUG (1): Sending packet to 8 at time 0:0:1.296951306:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:1.297851582:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:1.300781270:
+DEBUG (8): Received packet at time 0:0:1.309143007:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 4
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:1.386718770:
+DEBUG (1): Received packet at time 0:0:1.389587405:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 7
+DEBUG (1): Sending packet to 7 at time 0:0:1.389587415:
+DEBUG (7): Received packet at time 0:0:1.396545382:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 7
+DEBUG (1): Sending packet to 6 at time 0:0:1.396713238:
+DEBUG (6): Received packet at time 0:0:1.398971526:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 7
+DEBUG (1): Sending packet to 5 at time 0:0:1.399139381:
+DEBUG (2): Publishing a message on topic 1. 
+DEBUG (2): Sending packet to 1 at time 0:0:1.402343770:
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:1.406250020:
+DEBUG (5): Received packet at time 0:0:1.408142014:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 7
+DEBUG (1): Received packet at time 0:0:1.415725672:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 2
+DEBUG (1): Sending packet to 8 at time 0:0:1.415725682:
+DEBUG (8): Received packet at time 0:0:1.425704872:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 2
+ERROR (9): Request was not acknowledged in time. Resending.
+DEBUG (9): Sending packet to 1 at time 0:0:1.486328155:
+DEBUG (1): Received packet at time 0:0:1.488662736:
+	Packet type: 2
+	Packet id: 9
+	Packet topic: 2
+	Packet payload: 0
+DEBUG (1): Printing list of subscriptions on topic 2:
+	Node id: 9
+	Node id: 8
+DEBUG (1): Sending packet to 9 at time 0:0:1.488662746:
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:1.489257832:
+DEBUG (1): Received packet at time 0:0:1.491027841:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (9): Received packet at time 0:0:1.492919923:
+	Packet type: 3
+	Packet id: 9
+	Packet topic: 2
+	Packet payload: 0
+DEBUG (1): Sending packet to 9 at time 0:0:1.493087771:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:1.493164082:
+ERROR (4): Request was not acknowledged in time. Resending.
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:1.496093770:
+DEBUG (4): Sending packet to 1 at time 0:0:1.496093780:
+DEBUG (1): Received packet at time 0:0:1.501251193:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (9): Received packet at time 0:0:1.502670235:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (1): Sending packet to 8 at time 0:0:1.502838083:
+DEBUG (8): Received packet at time 0:0:1.511535542:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (1): Sending packet to 9 at time 0:0:1.511703398:
+DEBUG (9): Received packet at time 0:0:1.516311525:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (1): Sending packet to 8 at time 0:0:1.516479381:
+DEBUG (8): Received packet at time 0:0:1.523238985:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 5
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:1.582031270:
+DEBUG (1): Received packet at time 0:0:1.586379999:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 8
+DEBUG (1): Sending packet to 7 at time 0:0:1.586380009:
+DEBUG (7): Received packet at time 0:0:1.596084542:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 8
+DEBUG (1): Sending packet to 6 at time 0:0:1.596252398:
+DEBUG (2): Publishing a message on topic 1. 
+DEBUG (2): Sending packet to 1 at time 0:0:1.597656270:
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:1.601562520:
+DEBUG (1): Received packet at time 0:0:1.604080205:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (6): Received packet at time 0:0:1.607223403:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 8
+DEBUG (1): Sending packet to 5 at time 0:0:1.607391255:
+DEBUG (1): Received packet at time 0:0:1.609054518:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (5): Received packet at time 0:0:1.615173192:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 8
+DEBUG (1): Sending packet to 9 at time 0:0:1.615341038:
+DEBUG (9): Received packet at time 0:0:1.624862467:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Sending packet to 8 at time 0:0:1.625030323:
+DEBUG (8): Received packet at time 0:0:1.626388347:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 3
+DEBUG (1): Sending packet to 7 at time 0:0:1.626556203:
+DEBUG (7): Received packet at time 0:0:1.633407359:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (1): Sending packet to 6 at time 0:0:1.633575215:
+DEBUG (6): Received packet at time 0:0:1.644149494:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (1): Sending packet to 5 at time 0:0:1.644317350:
+DEBUG (5): Received packet at time 0:0:1.646667190:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 3
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:1.684570332:
+DEBUG (1): Received packet at time 0:0:1.686523446:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (1): Sending packet to 9 at time 0:0:1.686523456:
+DEBUG (9): Publishing a message on topic 0. 
+DEBUG (9): Sending packet to 1 at time 0:0:1.687500020:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:1.688476582:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:1.691406270:
+DEBUG (1): Received packet at time 0:0:1.694442734:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (9): Received packet at time 0:0:1.698989814:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (1): Sending packet to 8 at time 0:0:1.699157664:
+DEBUG (8): Received packet at time 0:0:1.709472545:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (1): Sending packet to 9 at time 0:0:1.709640401:
+DEBUG (9): Received packet at time 0:0:1.717452855:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (1): Sending packet to 8 at time 0:0:1.717620711:
+DEBUG (8): Received packet at time 0:0:1.725860409:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:1.777343770:
+DEBUG (1): Received packet at time 0:0:1.781631464:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 9
+DEBUG (1): Sending packet to 7 at time 0:0:1.781631474:
+DEBUG (7): Received packet at time 0:0:1.789367635:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 9
+DEBUG (1): Sending packet to 6 at time 0:0:1.789535491:
+DEBUG (2): Publishing a message on topic 1. 
+DEBUG (2): Sending packet to 1 at time 0:0:1.792968770:
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:1.796875020:
+DEBUG (6): Received packet at time 0:0:1.798843298:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 9
+DEBUG (1): Sending packet to 5 at time 0:0:1.799011154:
+DEBUG (5): Received packet at time 0:0:1.800811680:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 9
+DEBUG (1): Received packet at time 0:0:1.801895109:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 7 at time 0:0:1.801895119:
+DEBUG (1): Received packet at time 0:0:1.806182827:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 4
+DEBUG (7): Received packet at time 0:0:1.807907047:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 6 at time 0:0:1.808074897:
+DEBUG (6): Received packet at time 0:0:1.810241632:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 5 at time 0:0:1.810409488:
+DEBUG (5): Received packet at time 0:0:1.816772366:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 4
+DEBUG (1): Sending packet to 9 at time 0:0:1.816940221:
+DEBUG (9): Received packet at time 0:0:1.821990851:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 4
+DEBUG (1): Sending packet to 8 at time 0:0:1.822158707:
+DEBUG (8): Received packet at time 0:0:1.824752686:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 4
+DEBUG (5): Publishing a message on topic 2. 
+DEBUG (5): Sending packet to 1 at time 0:0:1.879882832:
+DEBUG (9): Publishing a message on topic 0. 
+DEBUG (9): Sending packet to 1 at time 0:0:1.882812520:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:1.883789082:
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:1.886718770:
+DEBUG (1): Received packet at time 0:0:1.887359595:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 7
+DEBUG (1): Sending packet to 9 at time 0:0:1.887359605:
+DEBUG (1): Received packet at time 0:0:1.890426611:
+	Packet type: 4
+	Packet id: 9
+	Packet topic: 0
+	Packet payload: 2
+DEBUG (1): Received packet at time 0:0:1.892257678:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 7
+DEBUG (9): Received packet at time 0:0:1.894302314:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 7
+DEBUG (1): Sending packet to 8 at time 0:0:1.894470161:
+DEBUG (8): Received packet at time 0:0:1.900558382:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 7
+DEBUG (1): Sending packet to 2 at time 0:0:1.900726238:
+DEBUG (2): Received packet at time 0:0:1.906097300:
+	Packet type: 4
+	Packet id: 9
+	Packet topic: 0
+	Packet payload: 2
+DEBUG (1): Sending packet to 3 at time 0:0:1.906265156:
+DEBUG (3): Received packet at time 0:0:1.913375710:
+	Packet type: 4
+	Packet id: 9
+	Packet topic: 0
+	Packet payload: 2
+DEBUG (1): Sending packet to 2 at time 0:0:1.913543566:
+DEBUG (2): Received packet at time 0:0:1.915527197:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 7
+DEBUG (1): Sending packet to 3 at time 0:0:1.915695053:
+DEBUG (3): Received packet at time 0:0:1.921401806:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 7
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:1.972656270:
+DEBUG (1): Received packet at time 0:0:1.976425168:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 10
+DEBUG (1): Sending packet to 7 at time 0:0:1.976425178:
+DEBUG (7): Received packet at time 0:0:1.979095451:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 10
+DEBUG (1): Sending packet to 6 at time 0:0:1.979263307:
+ERROR (4): Request was not acknowledged in time. Resending.
+DEBUG (4): Sending packet to 1 at time 0:0:1.984375030:
+DEBUG (6): Received packet at time 0:0:1.987014726:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 10
+DEBUG (1): Sending packet to 5 at time 0:0:1.987182582:
+DEBUG (1): Received packet at time 0:0:1.988052376:
 	Packet type: 2
 	Packet id: 4
 	Packet topic: 0
 	Packet payload: 0
 DEBUG (1): Printing list of subscriptions on topic 0:
 	Node id: 4
-	Node id: 3
 	Node id: 2
-DEBUG (8): Received packet at time 0:0:0.512206961:
-	Packet type: 3
-	Packet id: 8
-	Packet topic: 2
-	Packet payload: 0
-DEBUG (1): Sending packet to 4 at time 0:0:0.512374814:
-DEBUG (4): Received packet at time 0:0:0.516128454:
-	Packet type: 3
-	Packet id: 4
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:0.613281270:
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:0.620117207:
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:0.630859395:
-DEBUG (1): Received packet at time 0:0:0.639053316:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 3
-DEBUG (1): Sending packet to 8 at time 0:0:0.639053326:
-DEBUG (8): Received packet at time 0:0:0.644912667:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 3
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:0.707031270:
-DEBUG (1): Received packet at time 0:0:0.708374035:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 1
-DEBUG (1): Sending packet to 4 at time 0:0:0.708374045:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:0.710937520:
-DEBUG (4): Received packet at time 0:0:0.712707516:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 1
-DEBUG (1): Sending packet to 3 at time 0:0:0.712875372:
-DEBUG (3): Received packet at time 0:0:0.714996331:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 1
-DEBUG (1): Sending packet to 2 at time 0:0:0.715164187:
-DEBUG (1): Received packet at time 0:0:0.719329805:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 1
-DEBUG (2): Received packet at time 0:0:0.725433292:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 1
-DEBUG (1): Sending packet to 7 at time 0:0:0.725601145:
-DEBUG (7): Received packet at time 0:0:0.735366713:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 1
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:0.808593770:
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:0.815429707:
-DEBUG (1): Received packet at time 0:0:0.816467259:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (1): Sending packet to 7 at time 0:0:0.816467269:
-DEBUG (7): Received packet at time 0:0:0.820037805:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (1): Received packet at time 0:0:0.824462857:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (1): Sending packet to 7 at time 0:0:0.824462867:
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:0.826171895:
-DEBUG (1): Received packet at time 0:0:0.828460700:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 4
-DEBUG (7): Received packet at time 0:0:0.831726009:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (1): Sending packet to 8 at time 0:0:0.831893860:
-DEBUG (8): Received packet at time 0:0:0.838836568:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 4
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:0.902343770:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:0.906250020:
-DEBUG (1): Received packet at time 0:0:0.909301737:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 2
-DEBUG (1): Sending packet to 4 at time 0:0:0.909301747:
-DEBUG (4): Received packet at time 0:0:0.911880467:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 2
-DEBUG (1): Sending packet to 3 at time 0:0:0.912048323:
-DEBUG (1): Received packet at time 0:0:0.912887554:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 2
-DEBUG (3): Received packet at time 0:0:0.914459197:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 2
-DEBUG (1): Sending packet to 2 at time 0:0:0.914627044:
-DEBUG (2): Received packet at time 0:0:0.921066215:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 2
-DEBUG (1): Sending packet to 7 at time 0:0:0.921234071:
-DEBUG (7): Received packet at time 0:0:0.926284701:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 2
-ERROR (5): Request was not acknowledged in time. Resending.
-ERROR (9): Request was not acknowledged in time. Resending.
-ERROR (6): Request was not acknowledged in time. Resending.
-DEBUG (5): Sending packet to 1 at time 0:0:0.976562530:
-DEBUG (9): Sending packet to 1 at time 0:0:0.976562530:
-DEBUG (6): Sending packet to 1 at time 0:0:0.976562530:
-DEBUG (1): Received packet at time 0:0:0.982009885:
-	Packet type: 0
-	Packet id: 6
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Printing list of active connections:
-	Node id: 6
-	Node id: 4
-	Node id: 8
 	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (1): Sending packet to 6 at time 0:0:0.982009895:
-DEBUG (6): Received packet at time 0:0:0.992233224:
-	Packet type: 1
-	Packet id: 6
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (6): Sending packet to 1 at time 0:0:0.992233244:
-DEBUG (1): Received packet at time 0:0:1.001647862:
-	Packet type: 2
-	Packet id: 6
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (1): Printing list of subscriptions on topic 1:
-	Node id: 6
-	Node id: 7
-DEBUG (1): Sending packet to 6 at time 0:0:1.001647872:
 DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:1.003906270:
-DEBUG (6): Received packet at time 0:0:1.009719725:
+DEBUG (2): Sending packet to 1 at time 0:0:1.988281270:
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:1.992187520:
+DEBUG (5): Received packet at time 0:0:1.994354171:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 10
+DEBUG (1): Sending packet to 4 at time 0:0:1.994522026:
+DEBUG (1): Received packet at time 0:0:1.995742774:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 5
+DEBUG (4): Received packet at time 0:0:1.999282741:
 	Packet type: 3
-	Packet id: 6
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:1.010742207:
-DEBUG (1): Received packet at time 0:0:1.011245704:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (1): Sending packet to 6 at time 0:0:1.011245714:
-DEBUG (1): Received packet at time 0:0:1.015701285:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (6): Received packet at time 0:0:1.017608592:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (1): Sending packet to 7 at time 0:0:1.017776445:
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:1.021484395:
-DEBUG (1): Received packet at time 0:0:1.025421139:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 5
-DEBUG (7): Received packet at time 0:0:1.026962182:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (1): Sending packet to 6 at time 0:0:1.027130029:
-DEBUG (6): Received packet at time 0:0:1.037017667:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (1): Sending packet to 7 at time 0:0:1.037185522:
-DEBUG (7): Received packet at time 0:0:1.039428551:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 5
-DEBUG (1): Sending packet to 8 at time 0:0:1.039596407:
-DEBUG (8): Received packet at time 0:0:1.042571854:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 5
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:1.097656270:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:1.101562520:
-DEBUG (1): Received packet at time 0:0:1.101837153:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 3
-DEBUG (1): Sending packet to 4 at time 0:0:1.101837163:
-DEBUG (4): Received packet at time 0:0:1.103790277:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 3
-DEBUG (1): Sending packet to 3 at time 0:0:1.103958133:
-DEBUG (1): Received packet at time 0:0:1.107696517:
-	Packet type: 4
 	Packet id: 4
-	Packet topic: 1
-	Packet payload: 3
-DEBUG (3): Received packet at time 0:0:1.112411452:
-	Packet type: 4
-	Packet id: 8
 	Packet topic: 0
-	Packet payload: 3
-DEBUG (1): Sending packet to 2 at time 0:0:1.112579307:
-DEBUG (2): Received packet at time 0:0:1.117904593:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 3
-DEBUG (1): Sending packet to 6 at time 0:0:1.118072449:
-DEBUG (6): Received packet at time 0:0:1.120422289:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 3
-DEBUG (1): Sending packet to 7 at time 0:0:1.120590144:
-DEBUG (7): Received packet at time 0:0:1.123168865:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 3
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:1.199218770:
-DEBUG (6): Publishing a message on topic 2. 
-DEBUG (6): Sending packet to 1 at time 0:0:1.204101582:
-DEBUG (1): Received packet at time 0:0:1.204681384:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 6
-DEBUG (1): Sending packet to 6 at time 0:0:1.204681394:
-DEBUG (1): Received packet at time 0:0:1.206024178:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 1
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:1.206054707:
-DEBUG (6): Received packet at time 0:0:1.211120566:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 6
-DEBUG (1): Sending packet to 7 at time 0:0:1.211288418:
-DEBUG (7): Received packet at time 0:0:1.214019726:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 6
-DEBUG (1): Sending packet to 8 at time 0:0:1.214187581:
-DEBUG (1): Received packet at time 0:0:1.215774499:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 6
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:1.216796895:
-DEBUG (1): Received packet at time 0:0:1.218948371:
+	Packet payload: 0
+DEBUG (1): Sending packet to 7 at time 0:0:1.999450594:
+DEBUG (1): Received packet at time 0:0:2.001419033:
 	Packet type: 4
 	Packet id: 7
 	Packet topic: 2
-	Packet payload: 6
-DEBUG (8): Received packet at time 0:0:1.224136254:
+	Packet payload: 5
+DEBUG (7): Received packet at time 0:0:2.004211308:
 	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 1
-DEBUG (1): Sending packet to 6 at time 0:0:1.224304109:
-DEBUG (6): Received packet at time 0:0:1.234969940:
-	Packet type: 4
-	Packet id: 3
+	Packet id: 2
 	Packet topic: 1
-	Packet payload: 6
-DEBUG (1): Sending packet to 7 at time 0:0:1.235137796:
-DEBUG (7): Received packet at time 0:0:1.244308275:
+	Packet payload: 5
+DEBUG (1): Sending packet to 6 at time 0:0:2.004379163:
+DEBUG (6): Received packet at time 0:0:2.010009623:
 	Packet type: 4
-	Packet id: 3
+	Packet id: 2
 	Packet topic: 1
-	Packet payload: 6
-DEBUG (1): Sending packet to 8 at time 0:0:1.244476130:
-DEBUG (8): Received packet at time 0:0:1.250625386:
+	Packet payload: 5
+DEBUG (1): Sending packet to 5 at time 0:0:2.010177479:
+DEBUG (5): Received packet at time 0:0:2.020400808:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 5
+DEBUG (1): Sending packet to 9 at time 0:0:2.020568664:
+DEBUG (9): Received packet at time 0:0:2.030257938:
 	Packet type: 4
 	Packet id: 7
 	Packet topic: 2
-	Packet payload: 6
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:1.292968770:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:1.296875020:
-DEBUG (1): Received packet at time 0:0:1.297546380:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 4
-DEBUG (1): Sending packet to 4 at time 0:0:1.297546390:
-DEBUG (1): Received packet at time 0:0:1.300094605:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (4): Received packet at time 0:0:1.308044375:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 4
-DEBUG (1): Sending packet to 3 at time 0:0:1.308212225:
-DEBUG (3): Received packet at time 0:0:1.317870982:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 4
-DEBUG (1): Sending packet to 2 at time 0:0:1.318038838:
-DEBUG (2): Received packet at time 0:0:1.325225686:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 4
-DEBUG (1): Sending packet to 6 at time 0:0:1.325393541:
-DEBUG (6): Received packet at time 0:0:1.333144961:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (1): Sending packet to 7 at time 0:0:1.333312817:
-DEBUG (7): Received packet at time 0:0:1.343902355:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 4
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:1.394531270:
-DEBUG (6): Publishing a message on topic 2. 
-DEBUG (6): Sending packet to 1 at time 0:0:1.399414082:
-DEBUG (1): Received packet at time 0:0:1.399536123:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Sending packet to 6 at time 0:0:1.399536133:
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:1.401367207:
-DEBUG (1): Received packet at time 0:0:1.406158439:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Received packet at time 0:0:1.407134984:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 2
-DEBUG (6): Received packet at time 0:0:1.408798164:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Sending packet to 7 at time 0:0:1.408966019:
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:1.412109395:
-DEBUG (1): Received packet at time 0:0:1.415756224:
+	Packet payload: 5
+DEBUG (1): Sending packet to 8 at time 0:0:2.030425794:
+DEBUG (8): Received packet at time 0:0:2.032485718:
 	Packet type: 4
 	Packet id: 7
 	Packet topic: 2
-	Packet payload: 7
-DEBUG (7): Received packet at time 0:0:1.418548482:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Sending packet to 6 at time 0:0:1.418716334:
-DEBUG (6): Received packet at time 0:0:1.422195317:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Sending packet to 7 at time 0:0:1.422363173:
-DEBUG (7): Received packet at time 0:0:1.429412693:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 7
-DEBUG (1): Sending packet to 8 at time 0:0:1.429580548:
-DEBUG (8): Received packet at time 0:0:1.435561959:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 2
-DEBUG (1): Sending packet to 8 at time 0:0:1.435729814:
-DEBUG (8): Received packet at time 0:0:1.444778223:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 7
-ERROR (5): Request was not acknowledged in time. Resending.
-ERROR (9): Request was not acknowledged in time. Resending.
-DEBUG (5): Sending packet to 1 at time 0:0:1.464843780:
-DEBUG (9): Sending packet to 1 at time 0:0:1.464843780:
-DEBUG (1): Received packet at time 0:0:1.467025774:
-	Packet type: 0
-	Packet id: 5
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Printing list of active connections:
-	Node id: 5
-	Node id: 6
-	Node id: 4
-	Node id: 8
-	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (1): Sending packet to 5 at time 0:0:1.467025784:
-DEBUG (1): Received packet at time 0:0:1.471328727:
-	Packet type: 0
-	Packet id: 9
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (1): Printing list of active connections:
-	Node id: 9
-	Node id: 5
-	Node id: 6
-	Node id: 4
-	Node id: 8
-	Node id: 3
-	Node id: 7
-	Node id: 2
-DEBUG (5): Received packet at time 0:0:1.472854607:
-	Packet type: 1
-	Packet id: 5
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (5): Sending packet to 1 at time 0:0:1.472854627:
-DEBUG (1): Sending packet to 9 at time 0:0:1.473022457:
-DEBUG (1): Received packet at time 0:0:1.478469829:
-	Packet type: 2
-	Packet id: 5
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (1): Printing list of subscriptions on topic 1:
-	Node id: 5
-	Node id: 6
-	Node id: 7
-DEBUG (9): Received packet at time 0:0:1.480270340:
-	Packet type: 1
-	Packet id: 9
-	Packet topic: 0
-	Packet payload: 0
-DEBUG (9): Sending packet to 1 at time 0:0:1.480270360:
-DEBUG (1): Sending packet to 5 at time 0:0:1.480438189:
-DEBUG (1): Received packet at time 0:0:1.484817452:
-	Packet type: 2
-	Packet id: 9
-	Packet topic: 2
-	Packet payload: 0
-DEBUG (1): Printing list of subscriptions on topic 2:
-	Node id: 9
-	Node id: 8
-DEBUG (5): Received packet at time 0:0:1.486282271:
-	Packet type: 3
-	Packet id: 5
-	Packet topic: 1
-	Packet payload: 0
-DEBUG (1): Sending packet to 9 at time 0:0:1.486450122:
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:1.488281270:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:1.492187520:
-DEBUG (9): Received packet at time 0:0:1.496475088:
-	Packet type: 3
-	Packet id: 9
-	Packet topic: 2
-	Packet payload: 0
-DEBUG (2): Publishing a message on topic 1. 
-DEBUG (2): Sending packet to 1 at time 0:0:1.589843770:
-DEBUG (1): Received packet at time 0:0:1.591293346:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 5 at time 0:0:1.591293356:
-DEBUG (6): Publishing a message on topic 2. 
-DEBUG (6): Sending packet to 1 at time 0:0:1.594726582:
-DEBUG (3): Publishing a message on topic 1. 
-DEBUG (3): Sending packet to 1 at time 0:0:1.596679707:
-DEBUG (1): Received packet at time 0:0:1.598220824:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 3
-DEBUG (5): Received packet at time 0:0:1.601165735:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 6 at time 0:0:1.601333584:
-DEBUG (1): Received packet at time 0:0:1.602615341:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (7): Publishing a message on topic 2. 
-DEBUG (7): Sending packet to 1 at time 0:0:1.607421895:
-DEBUG (6): Received packet at time 0:0:1.608581467:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 7 at time 0:0:1.608749321:
-DEBUG (1): Received packet at time 0:0:1.609939580:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 8
-DEBUG (7): Received packet at time 0:0:1.610931315:
-	Packet type: 4
-	Packet id: 2
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 9 at time 0:0:1.611099170:
-DEBUG (9): Received packet at time 0:0:1.615829367:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 3
-DEBUG (1): Sending packet to 8 at time 0:0:1.615997223:
-DEBUG (8): Received packet at time 0:0:1.621444579:
-	Packet type: 4
-	Packet id: 6
-	Packet topic: 2
-	Packet payload: 3
-DEBUG (1): Sending packet to 5 at time 0:0:1.621612434:
-DEBUG (5): Received packet at time 0:0:1.631988350:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 6 at time 0:0:1.632156206:
-DEBUG (6): Received packet at time 0:0:1.640395904:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 7 at time 0:0:1.640563760:
-DEBUG (7): Received packet at time 0:0:1.650481915:
-	Packet type: 4
-	Packet id: 3
-	Packet topic: 1
-	Packet payload: 8
-DEBUG (1): Sending packet to 9 at time 0:0:1.650649770:
-DEBUG (9): Received packet at time 0:0:1.660537408:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 8
-DEBUG (1): Sending packet to 8 at time 0:0:1.660705264:
-DEBUG (8): Received packet at time 0:0:1.667220729:
-	Packet type: 4
-	Packet id: 7
-	Packet topic: 2
-	Packet payload: 8
+	Packet payload: 5
 DEBUG (5): Publishing a message on topic 2. 
-DEBUG (5): Sending packet to 1 at time 0:0:1.680664082:
-DEBUG (8): Publishing a message on topic 0. 
-DEBUG (8): Sending packet to 1 at time 0:0:1.683593770:
-DEBUG (4): Publishing a message on topic 1. 
-DEBUG (4): Sending packet to 1 at time 0:0:1.687500020:
-DEBUG (1): Received packet at time 0:0:1.688583347:
+DEBUG (5): Sending packet to 1 at time 0:0:2.075195332:
+DEBUG (1): Received packet at time 0:0:2.078002933:
 	Packet type: 4
 	Packet id: 5
 	Packet topic: 2
-	Packet payload: 1
-DEBUG (1): Sending packet to 9 at time 0:0:1.688583357:
+	Packet payload: 8
+DEBUG (1): Sending packet to 9 at time 0:0:2.078002943:
 DEBUG (9): Publishing a message on topic 0. 
-DEBUG (9): Sending packet to 1 at time 0:0:1.691406270:
-DEBUG (1): Received packet at time 0:0:1.692626920:
-	Packet type: 4
-	Packet id: 8
-	Packet topic: 0
-	Packet payload: 6
-DEBUG (9): Received packet at time 0:0:1.694900459:
+DEBUG (9): Sending packet to 1 at time 0:0:2.078125020:
+DEBUG (6): Publishing a message on topic 2. 
+DEBUG (6): Sending packet to 1 at time 0:0:2.079101582:
+DEBUG (9): Received packet at time 0:0:2.079849246:
 	Packet type: 4
 	Packet id: 5
 	Packet topic: 2
-	Packet payload: 1
-DEBUG (1): Sending packet to 8 at time 0:0:1.695068310:
-DEBUG (1): Received packet at time 0:0:1.697219811:
-	Packet type: 4
-	Packet id: 4
-	Packet topic: 1
-	Packet payload: 6
-DEBUG (8): Received packet at time 0:0:1.699935835:
-	Packet type: 4
-	Packet id: 5
-	Packet topic: 2
-	Packet payload: 1
-DEBUG (1): Sending packet to 4 at time 0:0:1.700103681:
-DEBUG (1): Received packet at time 0:0:1.701477012:
+	Packet payload: 8
+DEBUG (1): Sending packet to 8 at time 0:0:2.080017101:
+DEBUG (1): Received packet at time 0:0:2.081329347:
 	Packet type: 4
 	Packet id: 9
 	Packet topic: 0
-	Packet payload: 1
+	Packet payload: 3
+DEBUG (8): Publishing a message on topic 0. 
+DEBUG (8): Sending packet to 1 at time 0:0:2.082031270:
+DEBUG (8): Received packet at time 0:0:2.085113507:
+	Packet type: 4
+	Packet id: 5
+	Packet topic: 2
+	Packet payload: 8
+DEBUG (1): Sending packet to 4 at time 0:0:2.085281357:
+DEBUG (1): Received packet at time 0:0:2.086990330:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 8
+DEBUG (1): Received packet at time 0:0:2.092620807:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 8
+DEBUG (1): Sending packet to 2 at time 0:0:2.095138480:
+DEBUG (2): Received packet at time 0:0:2.098709016:
+	Packet type: 4
+	Packet id: 9
+	Packet topic: 0
+	Packet payload: 3
+DEBUG (1): Sending packet to 3 at time 0:0:2.098876871:
+DEBUG (3): Received packet at time 0:0:2.100921537:
+	Packet type: 4
+	Packet id: 9
+	Packet topic: 0
+	Packet payload: 3
+DEBUG (1): Sending packet to 9 at time 0:0:2.101089393:
+DEBUG (9): Received packet at time 0:0:2.102432159:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 8
+DEBUG (1): Sending packet to 8 at time 0:0:2.102600014:
+DEBUG (8): Received packet at time 0:0:2.112548687:
+	Packet type: 4
+	Packet id: 6
+	Packet topic: 2
+	Packet payload: 8
+DEBUG (1): Sending packet to 4 at time 0:0:2.112716542:
+DEBUG (4): Received packet at time 0:0:2.122466852:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 8
+DEBUG (1): Sending packet to 2 at time 0:0:2.122634707:
+DEBUG (2): Received packet at time 0:0:2.129470605:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 8
+DEBUG (1): Sending packet to 3 at time 0:0:2.129638461:
+DEBUG (3): Received packet at time 0:0:2.133163220:
+	Packet type: 4
+	Packet id: 8
+	Packet topic: 0
+	Packet payload: 8
+DEBUG (3): Publishing a message on topic 1. 
+DEBUG (3): Sending packet to 1 at time 0:0:2.167968770:
+DEBUG (1): Received packet at time 0:0:2.171997066:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 11
+DEBUG (1): Sending packet to 7 at time 0:0:2.171997076:
+DEBUG (7): Received packet at time 0:0:2.176406841:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 11
+DEBUG (1): Sending packet to 6 at time 0:0:2.176574696:
+DEBUG (6): Received packet at time 0:0:2.182449296:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 11
+DEBUG (1): Sending packet to 5 at time 0:0:2.182617152:
+DEBUG (2): Publishing a message on topic 1. 
+DEBUG (2): Sending packet to 1 at time 0:0:2.183593770:
+DEBUG (7): Publishing a message on topic 2. 
+DEBUG (7): Sending packet to 1 at time 0:0:2.187500020:
+DEBUG (1): Received packet at time 0:0:2.190139775:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (5): Received packet at time 0:0:2.191436680:
+	Packet type: 4
+	Packet id: 3
+	Packet topic: 1
+	Packet payload: 11
+DEBUG (1): Sending packet to 9 at time 0:0:2.191604535:
+DEBUG (9): Received packet at time 0:0:2.193618683:
+	Packet type: 4
+	Packet id: 7
+	Packet topic: 2
+	Packet payload: 6
+DEBUG (1): Sending packet to 8 at time 0:0:2.193786539:
+DEBUG (4): Publishing a message on topic 1. 
+DEBUG (4): Sending packet to 1 at time 0:0:2.194335957:
+DEBUG (1): Received packet at time 0:0:2.195266675:
+	Packet type: 4
+	Packet id: 2
+	Packet topic: 1
+	Packet payload: 6

@@ -1,14 +1,14 @@
 
 #include "Timer.h"
-#include "RadioRoute.h"
+#include "FinalProject.h"
 
 
-module RadioRouteC @safe() {
+module FinalProject @safe() {
   uses {
   
     /****** INTERFACES *****/
     
-	  interface Boot;
+	interface Boot;
     interface Receive;
     interface AMSend;
     interface SplitControl as AMControl;

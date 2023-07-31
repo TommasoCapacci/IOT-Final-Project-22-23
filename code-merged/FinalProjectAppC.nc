@@ -1,13 +1,13 @@
 
-#include "RadioRoute.h"
+#include "FinalProject.h"
 
-configuration RadioRouteAppC {}
+configuration FinalProjectAppC {}
 implementation {
  
 
   /****** COMPONENTS *****/
 
-  components MainC, ActiveMessageC, RandomC, RadioRouteC as App;
+  components MainC, ActiveMessageC, RandomC, FinalProjectC as App;
   
   components new AMReceiverC(AM_RADIO_COUNT_MSG);
   components new AMSenderC(AM_RADIO_COUNT_MSG);
