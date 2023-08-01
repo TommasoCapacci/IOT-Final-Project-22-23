@@ -203,7 +203,7 @@ implementation {
     
     if (TOS_NODE_ID == 1){  //if PANC...
       // print packet's content
-      dbg_clear("Data_console", "{\"Topic\":%d, \"Payload\":%d}\n", payload->topic, payload->payload);
+      dbg_clear("Data_console", "{\"id\":%d, \"payload\":\"%d=%d\"}\n", payload->id, payload->topic, payload->payload);
     
 	  // forward the message to all the RIGHT subscribers
       temp = subscriptions[payload->topic];
