@@ -8,17 +8,17 @@ module FinalProject @safe() {
   
     /****** INTERFACES *****/
     
-	interface Boot;
+	  interface Boot;
     interface Receive;
     interface AMSend;
     interface SplitControl as AMControl;
     interface Timer<TMilli> as Timer0;
     interface Timer<TMilli> as Timer1;
+    interface Timer<TMilli> as Timer2;
     interface Packet;
     interface Random;
   }
-}
-implementation {
+} implementation {
   
   
   /****** VARIABLES *****/
@@ -39,6 +39,7 @@ implementation {
 
   // Additional variables
   uint16_t counter = 0;
+  char* topics[3] = {"field1", "field2", "field3"};
   
   
   /****** FUNCTION PROTOTYPES *****/
@@ -57,11 +58,6 @@ implementation {
   void handleSUB(radio_route_msg_t* payload);
   void handleSUBACK(radio_route_msg_t* payload);
   void handlePUBLISH(radio_route_msg_t* payload);
-  
-
-  /****** TASK PROTOTYPES *****/
-  
-  task void radioSendTask();
   
   
   /****** FUNCTIONS *****/
@@ -86,9 +82,6 @@ implementation {
   	
     if(retFlag)
       handleRetransmission(address,message);
-      
-  	post radioSendTask();
-
   } 
   
   void handleRetransmission(uint16_t address, message_t* message){
@@ -203,9 +196,9 @@ implementation {
     
     if (TOS_NODE_ID == 1){  //if PANC...
       // print packet's content
-      dbg_clear("Data_console", "{\"id\":%d, \"payload\":\"%d=%d\"}\n", payload->id, payload->topic, payload->payload);
+      dbg_clear("Data_console", "{\"id\":%d, \"topic\":\"channels/2232092/publish\", \"payload\":\"%s=%d&status=MQTTPUBLISH\"}\n", payload->id, topics[payload->topic], payload->payload);
     
-	  // forward the message to all the RIGHT subscribers
+	    // forward the message to all the RIGHT subscribers
       temp = subscriptions[payload->topic];
       while (temp != NULL){
         if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
@@ -215,19 +208,6 @@ implementation {
       } 
     }
   } 
-
-
-  /****** TASKS *****/
-  
-  task void radioSendTask(){
-  /*
-  * Send a single packet in the queue taking it from the tail
-  */
-  	if (call AMSend.send(addressesPool[tail], packetsPool[tail], sizeof(radio_route_msg_t)) == SUCCESS)
-	    dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
-    else
-	    post radioSendTask();
-  }
   
   
   /****** EVENT HANDLERS *****/
@@ -239,7 +219,9 @@ implementation {
 
   event void AMControl.startDone(error_t err) {
   	if (err == SUCCESS){
-      dbg("Radio","Radio on on node %d!\n", TOS_NODE_ID);
+  	  call Timer2.startPeriodic(SEND_INTERVAL);
+      dbg("Radio","Radio on!\n");
+
       if (TOS_NODE_ID != 1) // if not PANC, send connect message to PANC
         generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, 1); // true because connect must be acknowledged
     } else {
@@ -279,6 +261,20 @@ implementation {
     dbg("Timer", "Publishing a message on topic %d. \n", topic);
     generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter, 0); // false because pubblication doesn't need to be acknowledged
   }
+  
+  event void Timer2.fired() {
+  /*
+  * Timer used to send queued messages
+  */
+    atomic{
+      if(head != tail){
+        if (call AMSend.send(addressesPool[tail], packetsPool[tail], sizeof(radio_route_msg_t)) == SUCCESS)
+	        dbg("Radio_send", "Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
+    	  else 
+	        dbgerror("Radio_send", "@@@FAILED@@@ Sending packet to %d at time %s:\n", addressesPool[tail], sim_time_string());
+	  }
+    }
+  }
 
   event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) {
 	  radio_route_msg_t* packet = (radio_route_msg_t*) payload;
@@ -316,9 +312,6 @@ implementation {
         free(packetsPool[tail]);
         tail = (tail + 1) % PACKET_POOL_SIZE;
       }
-    	
-    	if (head != tail)
-      	post radioSendTask();
     }
   }
 }
