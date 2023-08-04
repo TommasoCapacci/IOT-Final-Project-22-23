@@ -24,7 +24,7 @@ print("    using noise file: " + modelfile)
 print("Initializing simulator....")
 t.init() 
 
-simulation_outfile = "TOSSIM.log"
+simulation_outfile = os.path.join("..", "TOSSIM.log")
 print("Saving simulation's output to " + simulation_outfile)
 out = open(simulation_outfile, ("w"))
 

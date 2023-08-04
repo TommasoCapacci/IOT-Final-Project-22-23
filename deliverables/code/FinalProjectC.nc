@@ -45,7 +45,7 @@ module FinalProject @safe() {
   
   /****** FUNCTION PROTOTYPES *****/
   
-  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload, bool retFlag);
+  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload);
   void handleRetransmission(uint16_t address, message_t* message);
 
   void printPacketDebug(radio_route_msg_t* payload);
@@ -63,7 +63,7 @@ module FinalProject @safe() {
   
   /****** FUNCTIONS *****/
   
-  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload, bool retFlag){
+  void generate_send (uint16_t address, uint16_t message_type, uint16_t id, uint16_t topic, uint16_t payload){
   /*
   * Allocate a new message, populate it with the specified parameters and add it to the packets queue's head
   */
@@ -80,9 +80,6 @@ module FinalProject @safe() {
   	  addressesPool[head] = address;
  	  head = (head + 1) % PACKET_POOL_SIZE;
   	}
-  	
-    if(retFlag)
-      handleRetransmission(address,message);
   } 
   
   void handleRetransmission(uint16_t address, message_t* message){
@@ -150,7 +147,7 @@ module FinalProject @safe() {
     dbg("Data", "Printing list of active connections:\n");
     printList(connections);
     
-    generate_send(payload->id, CONNACK, payload->id, 0, 0, 0);  //false because PANC doesn't need to handle connect retransmission
+    generate_send(payload->id, CONNACK, payload->id, 0, 0);
   } 
 
   void handleCONNACK(radio_route_msg_t* payload){
@@ -167,7 +164,7 @@ module FinalProject @safe() {
       else
         payload->topic = 2;
         
-      generate_send(1, SUB, TOS_NODE_ID, payload->topic, 0, 1); // true because sub must be acknowledged
+      generate_send(1, SUB, TOS_NODE_ID, payload->topic, 0);
     }
   }
 
@@ -177,7 +174,7 @@ module FinalProject @safe() {
       dbg("Data", "Printing list of subscriptions on topic %d:\n", payload->topic);
       printList(subscriptions[payload->topic]);
       
-      generate_send(payload->id, SUBACK, payload->id, payload->topic, 0, 0); // false because PANC doesn't need to handle sub retransmission
+      generate_send(payload->id, SUBACK, payload->id, payload->topic, 0);
     }
   }
 
@@ -203,7 +200,7 @@ module FinalProject @safe() {
       temp = subscriptions[payload->topic];
       while (temp != NULL){
         if (temp->id != payload->id){  //assume that publish messages are not sent back to the publisher
-          generate_send(temp->id, PUBLISH, payload->id, payload->topic, payload->payload, 0); // false because PANC doesn't need to handle pub retransmission
+          generate_send(temp->id, PUBLISH, payload->id, payload->topic, payload->payload);
           temp = temp->next;
         }
       } 
@@ -224,7 +221,7 @@ module FinalProject @safe() {
       dbg("Radio","Radio on!\n");
 
       if (TOS_NODE_ID != 1) // if not PANC, send connect message to PANC
-        generate_send(1, CONNECT, TOS_NODE_ID, 0, 0, 1); // true because connect must be acknowledged
+        generate_send(1, CONNECT, TOS_NODE_ID, 0, 0);
     } else {
       dbgerror("Radio", "Radio failed to start, retrying...\n");
       call AMControl.start();
@@ -242,7 +239,7 @@ module FinalProject @safe() {
     radio_route_msg_t* packet = (radio_route_msg_t*)call Packet.getPayload(request, sizeof(radio_route_msg_t));
     
   	dbgerror("Timer", "Request was not acknowledged in time. Resending.\n");
-    generate_send(requestAddress, packet->message_type, packet->id, packet->topic, packet->payload, 1); // true because request must be acknowledged
+    generate_send(requestAddress, packet->message_type, packet->id, packet->topic, packet->payload);
   }
   
   event void Timer1.fired() {
@@ -260,7 +257,7 @@ module FinalProject @safe() {
         topic = 0;
         
     dbg("Timer", "Publishing a message on topic %d. \n", topic);
-    generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter, 0); // false because pubblication doesn't need to be acknowledged
+    generate_send(1, PUBLISH, TOS_NODE_ID, topic, counter);
   }
   
   event void Timer2.fired() {
@@ -305,11 +302,17 @@ module FinalProject @safe() {
   }
 
   event void AMSend.sendDone(message_t* bufPtr, error_t error) {
-	/* 
-	*  Check if the RIGHT packet has been sent
-	*/ 
+  /*  
+  *  Check if the RIGHT packet has been sent
+  */ 
+	radio_route_msg_t* packet;
+	
     atomic{
       if (bufPtr == packetsPool[tail]){
+      	packet = (radio_route_msg_t*)call Packet.getPayload(packetsPool[tail], sizeof(radio_route_msg_t));
+      	if (packet->message_type == CONNECT || packet->message_type == SUB)
+      	  handleRetransmission(addressesPool[tail], packetsPool[tail]);
+      	  
         free(packetsPool[tail]);
         tail = (tail + 1) % PACKET_POOL_SIZE;
       }
