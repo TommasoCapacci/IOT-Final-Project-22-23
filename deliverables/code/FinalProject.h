@@ -22,6 +22,7 @@ typedef struct Node{
 
 
 /********** CONSTANTS *********/
+
 enum{
 	AM_RADIO_COUNT_MSG = 10,
 	ACK_TIMEOUT = 500,
