@@ -31,8 +31,8 @@ module FinalProject @safe() {
   uint8_t tail = 0;
   
   // Variables for retransmission
-  uint16_t requestAddress = 0;
   message_t* request;
+  uint16_t requestAddress = 0;
   
   // Data structures for connections and subscriptions
   Node* connections = NULL;
@@ -305,7 +305,7 @@ module FinalProject @safe() {
   /*  
   *  Check if the RIGHT packet has been sent
   */ 
-	radio_route_msg_t* packet;
+	  radio_route_msg_t* packet;
 	
     atomic{
       if (bufPtr == packetsPool[tail]){
