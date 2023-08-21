@@ -192,7 +192,7 @@ module FinalProject @safe() {
   void handlePUBLISH(radio_route_msg_t* payload){
     Node* temp = NULL;
     
-    if (TOS_NODE_ID == 1){  //if PANC...
+    if (TOS_NODE_ID == 1 && searchID(connections, payload->id)){  //if PANC...
       // print packet's content
       dbg_clear("Data_console", "{\"id\":%d, \"topic\":\"channels/2232092/publish\", \"payload\":\"%s=%d&status=MQTTPUBLISH\"}\n", payload->id, topics[payload->topic], payload->payload);
     
